@@ -1,0 +1,11 @@
+.header {
+  background-image: url("../../public/jumbotron.png");
+  min-height: 100vh;
+  background-size: cover;
+}
+
+@media screen and (min-width: 768px) {
+  .header {
+    min-height: 90vh;
+  }
+}
