@@ -17,6 +17,11 @@
   width: 100%;
 }
 
+.transfer-desc {
+  width: 70%;
+  text-align: center;
+}
+
 @media screen and (min-width: 768px) {
   .header {
     min-height: 90vh;
@@ -39,5 +44,9 @@
 
   .tetiDescription {
     width: 55%;
+  }
+
+  .transfer-desc {
+    width: 40%;
   }
 }

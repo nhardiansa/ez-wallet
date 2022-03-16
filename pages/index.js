@@ -16,6 +16,7 @@ import HnM from '../public/images/h&m.png'
 
 import phoneBanner from '../public/images/phone-banner.png'
 import testiPlaceholder from '../public/images/testi-placeholder.jpg'
+import EZFooter from '../components/EZFooter';
 
 export default function Home() {
   return (
@@ -98,13 +99,13 @@ export default function Home() {
         </div>
       </section>
       <section className="money-transfered container py-5 px-4 d-flex flex-column align-items-center">
-        <div className={`${style.bgWhiteGreen} py-2 px-md-5 px-3 mt-3 rounded-pill`}>
+        <div className={`${style.bgWhiteGreen} py-3 px-md-5 px-3 mt-3 rounded-pill`}>
           <p className='fw-bolder fs-1 text-primary m-0'>Rp. 390.736.500</p>
         </div>
-        <h2 className='fw-bolder my-4 fs-1 text-center'>
+        <h2 className='fw-bolder my-5 fs-1 text-center'>
           <span className='text-primary'>Money</span> has Been Transfered.
         </h2>
-        <p className='text-center'>
+        <p className={style['transfer-desc']}>
         That amount of money has been transfered from all users. We still counting and going strong!
         </p>
       </section>
@@ -133,7 +134,7 @@ export default function Home() {
       </section>
       <section className="testi bg-semi-white py-5 px-4">
         <h2 className='fw-bolder text-center mb-4'>What Users are <span className='text-primary'>Saying.</span></h2>
-        <p className='text-center'>We have some great features from the application and it’s totally free to use by all users around the world.</p>
+        <p className={`text-center`}>We have some great features from the application and it’s totally free to use by all users around the world.</p>
 
         <div className="row align-items-center justify-content-center">
           <div className="col-1 d-none d-md-block text-end">
@@ -156,9 +157,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <footer>
-
-      </footer>
+      <EZFooter />
     </>
   )
 }
