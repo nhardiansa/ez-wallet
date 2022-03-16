@@ -9,7 +9,7 @@ export default function EZNavbar() {
       <Navbar.Brand href="#home" className='fw-bold fs-3'>EZ Wallet</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" className='border-0'/>
       <Navbar.Collapse id="responsive-navbar-nav align-items-center" >
-        <Nav className="ms-auto text-white mt-4 mt-lg-0">
+        <Nav className="ms-auto text-white my-4 my-lg-0 ">
           <EZButton variant='white-outline'>Login</EZButton>
           <EZButton variant='white' className='mt-3 mt-lg-0 ms-lg-4'>Sign Up</EZButton>
         </Nav>
