@@ -3,7 +3,6 @@ import EZSideBanner from '../components/EZSideBanner';
 import { useEffect, useState } from 'react';
 import EZForm from '../components/auth/EZForm';
 import Head from 'next/head';
-import { capitalize } from '../helpers/stringFormatter';
 
 export default function Login({readyToReset}) {
   const router = useRouter();
@@ -24,6 +23,11 @@ export default function Login({readyToReset}) {
         break;
       }
 
+      case '/create-pin': {
+        setPathName('create-pin');
+        break;
+      }
+
       default: {
         setPathName('login');
       }
@@ -32,11 +36,30 @@ export default function Login({readyToReset}) {
 
   return (
     <>
-      <div>
-        <Head>
-          <title> {capitalize(pathName)} </title>
-        </Head>
-      </div>
+      <Head>
+
+      {
+        pathName === 'login' && (
+          <title>Login | EZ Wallet</title>
+        )
+      }
+      {
+        pathName === 'register' && (
+          <title>Signup | EZ Wallet</title>
+        )
+      }
+      {
+        pathName === 'forgot-password' && (
+          <title>Forgot Password | EZ Wallet</title>
+        )
+      }
+      {
+        pathName === 'create-pin' && (
+          <title>Create Pin | EZ Wallet</title>
+        )
+      }
+
+      </Head>
       <section className="row vh-100 align-items-center">
         <EZSideBanner wrapperClassName="banner h-100 col-lg-7 d-none d-lg-flex justify-content-center" />
         <div className="form col px-md-5 vh-100 overflow-auto">
@@ -76,6 +99,20 @@ export default function Login({readyToReset}) {
                   }
                 </>
 
+              )
+            }
+            {
+              pathName === 'create-pin' && (
+                <>
+                  <p className='fw-bold fs-5 mb-4'>
+                    Secure Your Account, Your Wallet,
+                    and Your Data With 6 Digits PIN
+                    That You Created Yourself.
+                  </p>
+                  <p className='text-gray mb-5'>
+                    Create 6 digits pin to secure all your money and your data in Zwallet app. Keep it secret and don’t tell anyone about your Zwallet account password and the PIN.
+                  </p>
+                </>
               )
             }
             <EZForm path={pathName} readyToReset={readyToReset} />

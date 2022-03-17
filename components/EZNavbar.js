@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import {useRouter} from 'next/router';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
@@ -10,6 +10,7 @@ import picturePlaceholder from '../public/images/testi-placeholder.jpg'
 
 export default function EZNavbar() {
 
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false)
   const [isLogged, setIsLogged] = useState(false)
 
@@ -48,8 +49,8 @@ export default function EZNavbar() {
           )
           : (
             <Nav className="ms-auto text-white my-4 my-lg-0">
-              <EZButton variant='white-outline'>Login</EZButton>
-              <EZButton variant='white' className='mt-3 mt-lg-0 ms-lg-4'>Sign Up</EZButton>
+              <EZButton onClick={() => router.push('/login')} variant='white-outline'>Login</EZButton>
+              <EZButton onClick={() => router.push('/register')} variant='white' className='mt-3 mt-lg-0 ms-lg-4'>Sign Up</EZButton>
             </Nav>
           )
         }

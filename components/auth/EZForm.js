@@ -102,6 +102,9 @@ export default function EZForm({path, readyToReset}) {
             path === 'register' && "Register"
           }
           {
+            path === 'create-pin' && "Confirm"
+          }
+          {
             (path === 'forgot-password' && !readyToReset) && "Confirm"
           }
           {
