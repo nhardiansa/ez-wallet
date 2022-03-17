@@ -2,13 +2,10 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 * {
@@ -17,4 +14,8 @@ a {
 
 .bg-semi-white {
   background-color: #FAFCFF;
+}
+
+.text-gray, .text-gray:hover, .text-gray:focus {
+  color: #8F9BB3 !important;
 }
