@@ -15,7 +15,7 @@ export default function EZFooter() {
           </div>
           <div className="contacts col-12 col-lg-5 d-lg-flex justify-content-end">
             <p className="mb-2 me-lg-4 mb-lg-0">+62 5637 8882 9901</p>
-            <p className="m-0">contact@zwallet.com</p>
+            <p className="m-0">contact@ezwallet.com</p>
           </div>
         </section>
       </div>

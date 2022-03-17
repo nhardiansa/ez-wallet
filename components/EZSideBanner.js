@@ -9,7 +9,7 @@ export default function EZSideBanner({wrapperClassName}) {
         <h1 className='fw-bolder fs-1 mt-5'>EZ Wallet</h1>
         <Image src={phone} alt='phone-banner' layout='responsive' />
         <p className='fw-bold fs-4'>App that Covering Banking Needs.</p>
-        <p className='mb-5'>Zwallet is an application that focussing in banking needs for all users in the world. Always updated and always following world trends. 5000+ users registered in Zwallet everyday with worldwide users coverage.</p>
+        <p className='mb-5'>EZ Wallet is an application that focussing in banking needs for all users in the world. Always updated and always following world trends. 5000+ users registered in EZ Wallet everyday with worldwide users coverage.</p>
       </div>
     </section>
   )
