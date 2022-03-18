@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { HiOutlineMail } from 'react-icons/hi';
 import { MdOutlineLock, MdPassword } from 'react-icons/md';
 import { BiUser } from 'react-icons/bi';

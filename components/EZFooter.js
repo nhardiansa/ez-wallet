@@ -1,14 +1,21 @@
 import style from '../styles/scss/Footer.module.scss';
 
-export default function EZFooter () {
+export default function EZFooter ({useHeader}) {
+  
   return (
-    <footer className={' ez-footer bg-primary py-5'}>
+    <footer className={`ez-footer bg-primary ${ useHeader ? 'py-3' : 'py-5' }`}>
       <div className="footer-wrapper container px-md-5 px-4 text-white">
-        <section className="footer-head">
-          <h3 className="fw-bolder mb-4">EZ Wallet</h3>
-          <p className={style.desc}>Simplify financial needs and saving much time in banking needs with one single app.</p>
-        </section>
-        <hr className="my-4 my-lg-5" />
+        {
+          !useHeader && (
+            <>
+              <section className="footer-head">
+                <h3 className="fw-bolder mb-4">EZ Wallet</h3>
+                <p className={style.desc}>Simplify financial needs and saving much time in banking needs with one single app.</p>
+              </section>
+              <hr className="my-4 my-lg-5" />
+            </>
+          )
+        }
         <section className="footer-credit row">
           <div className="col-12 col-lg-7">
             <p className="mb-5 mb-lg-0">{new Date().getFullYear()} EZ Wallet. All right reserved.</p>

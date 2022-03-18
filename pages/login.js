@@ -25,7 +25,7 @@ export default function Login ({ readyToReset, changeHandler, values, submitHand
   const sendLoginInfo = (e) => {
     e.preventDefault();
     alert('login');
-    router.push('/create-pin');
+    router.push('/dashboard');
   };
 
   useEffect(() => {
