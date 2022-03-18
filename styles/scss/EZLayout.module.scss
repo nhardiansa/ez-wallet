@@ -1,0 +1,18 @@
+.container-layout {
+  padding-top: 4.5rem;
+  padding-bottom: 0.2rem;
+
+  min-height: 94vh;
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 992px) {
+  .container-layout {
+    padding-top: 8rem;
+    padding-bottom: 1rem;
+
+    height: 94vh;
+  }
+}
