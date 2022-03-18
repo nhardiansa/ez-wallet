@@ -3,10 +3,30 @@ import EZSideBanner from '../components/EZSideBanner';
 import { useEffect, useState } from 'react';
 import EZForm from '../components/auth/EZForm';
 import Head from 'next/head';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearAuthInfo, setAuthInfo } from '../redux/actions/authAction';
 
-export default function Login({readyToReset}) {
+export default function Login({readyToReset, changeHandler, values, submitHandler}) {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [pathName, setPathName] = useState(router.pathname || '');
+  const {authReducer} = useSelector(state => state);
+
+  const loginChangeHandler = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    if (name === 'email' || name === 'password') {
+      dispatch(setAuthInfo({
+        [name]: value,
+      }))
+    }
+  }
+
+  const sendLoginInfo = (e) => {
+    e.preventDefault();
+    alert('login');
+    router.push('/create-pin');
+  }
 
   useEffect(() => {
     switch (router.pathname) {
@@ -31,6 +51,10 @@ export default function Login({readyToReset}) {
       default: {
         setPathName('login');
       }
+    }
+
+    return () => {
+      dispatch(clearAuthInfo());
     }
   }, [router]);
 
@@ -115,7 +139,27 @@ export default function Login({readyToReset}) {
                 </>
               )
             }
-            <EZForm path={pathName} readyToReset={readyToReset} />
+            {
+              pathName === 'login' ? (
+                <EZForm
+                  path={pathName}
+                  readyToReset={readyToReset}
+                  onChange={loginChangeHandler}
+                  values={authReducer}
+                  submitHandler={sendLoginInfo}
+                />
+              )
+              :
+              (
+                <EZForm
+                  path={pathName}
+                  readyToReset={readyToReset}
+                  onChange={changeHandler}
+                  values={values}
+                  submitHandler={submitHandler}
+                />
+              )
+            }
           </div>
         </div>
       </section>
