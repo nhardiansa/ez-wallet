@@ -3,17 +3,20 @@ import { useEffect, useState } from 'react'
 import {HiOutlineMail} from 'react-icons/hi'
 import {MdOutlineLock, MdPassword} from 'react-icons/md'
 import {BiUser} from 'react-icons/bi'
+
+import OtpInput from 'react-otp-input'
+
 import EZButton from '../EZButton'
 import EZInput from '../EZInput'
 
-export default function EZForm({path, readyToReset}) {
+export default function EZForm({path, readyToReset, onChange, values, submitHandler }) {
 
   useEffect(() => {
     console.log(path)
   },[path]);
   return (
     <>
-      <form className='d-flex flex-column align-items-end'>
+      <form onSubmit={submitHandler} className='d-flex flex-column align-items-end'>
         {
           (path === 'login' || path === 'register') && (
             <>
@@ -24,13 +27,15 @@ export default function EZForm({path, readyToReset}) {
                       wrapperClassName='mb-4 mb-md-5'
                       icon={<BiUser />}
                       placeholder='Enter your firstname'
-                      name='firstname'
+                      name='firstName'
+                      onChange={onChange}
                     />
                     <EZInput
                       wrapperClassName='mb-4 mb-md-5'
                       icon={<BiUser />}
                       placeholder='Enter your lastname'
-                      name='lastname'
+                      name='lastName'
+                      onChange={onChange}
                     />
                   </>
                 )
@@ -41,6 +46,7 @@ export default function EZForm({path, readyToReset}) {
                 placeholder='Enter your e-mail'
                 name='email'
                 type='email'
+                onChange={onChange}
               />
               <EZInput
                 wrapperClassName={'mb-3'}
@@ -48,6 +54,7 @@ export default function EZForm({path, readyToReset}) {
                 placeholder='Enter your password'
                 name='password'
                 type='password'
+                onChange={onChange}
               />
               {
                 path === 'login' && (
@@ -66,6 +73,7 @@ export default function EZForm({path, readyToReset}) {
               icon={<HiOutlineMail />}
               placeholder='Enter your e-mail'
               name='email'
+              onChange={onChange}
             />
           )
         }
@@ -76,30 +84,50 @@ export default function EZForm({path, readyToReset}) {
                 wrapperClassName='mb-4 mb-md-5'
                 icon={<MdPassword />}
                 placeholder='Confirmation code'
-                name='text'
+                name='otpCode'
+                onChange={onChange}
               />
               <EZInput
                 wrapperClassName='mb-4 mb-md-5'
                 icon={<MdOutlineLock />}
                 placeholder='Create new password'
                 name='password'
+                type='password'
+                onChange={onChange}
               />
               <EZInput
                 wrapperClassName='mb-4 mb-md-5'
                 icon={<MdOutlineLock />}
                 placeholder='Confirm new password'
-                name='password'
+                name='confirmPassword'
+                type='password'
+                onChange={onChange}
               />
             </>
           )
         }
+        {
+          (path === 'create-pin') && (
+            <OtpInput
+              containerStyle='w-100 justify-content-between'
+              inputStyle='py-2 w-100 mx-1 mx-md-4 mx-lg-2 fw-bold fs-3 border rounded'
+              onChange={onChange}
+              value={values}
+              numInputs={6}
+              // isInputNum={true}
+            />
+          )
+        }
 
-        <EZButton className='w-100 py-2 py-md-3 my-4'>
+        <EZButton type='submit' className='w-100 py-2 py-md-3 my-4'>
           {
             path === 'login' && "Login"
           }
           {
             path === 'register' && "Register"
+          }
+          {
+            path === 'create-pin' && "Confirm"
           }
           {
             (path === 'forgot-password' && !readyToReset) && "Confirm"

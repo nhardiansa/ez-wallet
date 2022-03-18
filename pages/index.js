@@ -1,3 +1,4 @@
+import {useRouter} from 'next/router';
 import Head from 'next/head'
 import Image from 'next/image';
 import EZButton from '../components/EZButton'
@@ -19,6 +20,8 @@ import testiPlaceholder from '../public/images/testi-placeholder.jpg'
 import EZFooter from '../components/EZFooter';
 
 export default function Home() {
+
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -34,7 +37,7 @@ export default function Home() {
           <p className='text-white my-4 lh-lg'>
           We bring you a mobile app for banking problems that <br /> oftenly wasting much of your times.
           </p>
-          <EZButton variant='white' className='px-lg-5 py-lg-3'>Try It Free</EZButton>
+          <EZButton onClick={() => router.push('/login')} variant='white' className='px-lg-5 py-lg-3'>Try It Free</EZButton>
         </div>
       </header>
       <section className='ez-wallet-benefit text-black bg-semi-white'>
