@@ -1,23 +1,23 @@
-import { Button } from "react-bootstrap";
+import { Button } from 'react-bootstrap';
 
-export default function EZButton({ className, variant, children, ...rest }) {
-  let classVariant = "";
+export default function EZButton ({ className, variant, children, ...rest }) {
+  let classVariant = '';
 
   switch (variant) {
-    case "primary":
-      classVariant = "btn-primary text-white border-0";
+    case 'primary':
+      classVariant = 'btn-primary text-white border-0';
       break;
 
-    case "white":
-      classVariant = "btn-secondary text-primary border-0";
+    case 'white':
+      classVariant = 'btn-secondary text-primary border-0';
       break;
 
-    case "white-outline":
-      classVariant = "btn-primary text-white border border-white";
+    case 'white-outline':
+      classVariant = 'btn-primary text-white border border-white';
       break;
 
     default:
-      classVariant = "btn-primary text-white border-0";
+      classVariant = 'btn-primary text-white border-0';
       break;
   }
 
@@ -28,5 +28,5 @@ export default function EZButton({ className, variant, children, ...rest }) {
     >
       {children}
     </Button>
-  )
+  );
 }

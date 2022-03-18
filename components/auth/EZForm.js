@@ -1,19 +1,18 @@
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import {HiOutlineMail} from 'react-icons/hi'
-import {MdOutlineLock, MdPassword} from 'react-icons/md'
-import {BiUser} from 'react-icons/bi'
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { HiOutlineMail } from 'react-icons/hi';
+import { MdOutlineLock, MdPassword } from 'react-icons/md';
+import { BiUser } from 'react-icons/bi';
 
-import OtpInput from 'react-otp-input'
+import OtpInput from 'react-otp-input';
 
-import EZButton from '../EZButton'
-import EZInput from '../EZInput'
+import EZButton from '../EZButton';
+import EZInput from '../EZInput';
 
-export default function EZForm({path, readyToReset, onChange, values, submitHandler }) {
-
+export default function EZForm ({ path, readyToReset, onChange, values, submitHandler }) {
   useEffect(() => {
-    console.log(path)
-  },[path]);
+    console.log(path);
+  }, [path]);
   return (
     <>
       <form onSubmit={submitHandler} className='d-flex flex-column align-items-end'>
@@ -121,25 +120,25 @@ export default function EZForm({path, readyToReset, onChange, values, submitHand
 
         <EZButton type='submit' className='w-100 py-2 py-md-3 my-4'>
           {
-            path === 'login' && "Login"
+            path === 'login' && 'Login'
           }
           {
-            path === 'register' && "Register"
+            path === 'register' && 'Register'
           }
           {
-            path === 'create-pin' && "Confirm"
+            path === 'create-pin' && 'Confirm'
           }
           {
-            (path === 'forgot-password' && !readyToReset) && "Confirm"
+            (path === 'forgot-password' && !readyToReset) && 'Confirm'
           }
           {
-            (path === 'forgot-password' && readyToReset) && "Reset Password"
+            (path === 'forgot-password' && readyToReset) && 'Reset Password'
           }
         </EZButton>
       </form>
       {
         path === 'login' && (
-          <p className='text-center text-gray'>Don’t have an account? Let’s  
+          <p className='text-center text-gray'>Don’t have an account? Let’s
             <Link href='/register'>
               <a className='fw-bold'> Sign Up</a>
             </Link>
@@ -148,7 +147,7 @@ export default function EZForm({path, readyToReset, onChange, values, submitHand
       }
       {
         path === 'register' && (
-          <p className='text-center text-gray'>Already have an account? Let’s  
+          <p className='text-center text-gray'>Already have an account? Let’s
             <Link href='/login'>
               <a className='fw-bold'> Login</a>
             </Link>
@@ -156,6 +155,6 @@ export default function EZForm({path, readyToReset, onChange, values, submitHand
         )
       }
     </>
-    
-  )
+
+  );
 }

@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint --fix"
   },
   "dependencies": {
     "@react-icons/all-files": "^4.1.0",
@@ -23,8 +23,13 @@
     "redux-promise-middleware": "^6.1.2"
   },
   "devDependencies": {
-    "eslint": "8.11.0",
+    "eslint": "^7.32.0",
     "eslint-config-next": "12.1.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "eslint-plugin-react": "^7.29.4",
     "sass": "^1.49.9"
   }
 }

@@ -1,26 +1,25 @@
-import {useRouter} from 'next/router';
-import Head from 'next/head'
+import { useRouter } from 'next/router';
+import Head from 'next/head';
 import Image from 'next/image';
-import EZButton from '../components/EZButton'
-import EZNavbar from '../components/EZNavbar'
-import {IoMdCall} from 'react-icons/io';
-import {BiLockAlt} from 'react-icons/bi';
-import {BsDownload, BsArrowLeft, BsArrowRight} from 'react-icons/bs';
-import style from '../styles/scss/Home.module.scss'
+import EZButton from '../components/EZButton';
+import EZNavbar from '../components/EZNavbar';
+import { IoMdCall } from 'react-icons/io';
+import { BiLockAlt } from 'react-icons/bi';
+import { BsDownload, BsArrowLeft, BsArrowRight } from 'react-icons/bs';
+import style from '../styles/scss/Home.module.scss';
 
-import microsoft from '../public/images/microsoft.png'
-import airBnb from '../public/images/airbnb.png'
-import canon from '../public/images/canon.png'
-import dell from '../public/images/dell.png'
-import dropbox from '../public/images/dropbox.png'
-import HnM from '../public/images/h&m.png'
+import microsoft from '../public/images/microsoft.png';
+import airBnb from '../public/images/airbnb.png';
+import canon from '../public/images/canon.png';
+import dell from '../public/images/dell.png';
+import dropbox from '../public/images/dropbox.png';
+import HnM from '../public/images/h&m.png';
 
-import phoneBanner from '../public/images/phone-banner.png'
-import testiPlaceholder from '../public/images/testi-placeholder.jpg'
+import phoneBanner from '../public/images/phone-banner.png';
+import testiPlaceholder from '../public/images/testi-placeholder.jpg';
 import EZFooter from '../components/EZFooter';
 
-export default function Home() {
-
+export default function Home () {
   const router = useRouter();
   return (
     <>
@@ -136,7 +135,7 @@ export default function Home() {
       </section>
       <section className="testi bg-semi-white py-5 px-4">
         <h2 className='fw-bolder text-center mb-4'>What Users are <span className='text-primary'>Saying.</span></h2>
-        <p className={`text-center`}>We have some great features from the application and it’s totally free to use by all users around the world.</p>
+        <p className={'text-center'}>We have some great features from the application and it’s totally free to use by all users around the world.</p>
 
         <div className="row align-items-center justify-content-center">
           <div className="col-1 d-none d-md-block text-end">
@@ -161,5 +160,5 @@ export default function Home() {
       </section>
       <EZFooter />
     </>
-  )
+  );
 }

@@ -1,8 +1,8 @@
-import style from '../styles/scss/Footer.module.scss'
+import style from '../styles/scss/Footer.module.scss';
 
-export default function EZFooter() {
+export default function EZFooter () {
   return (
-    <footer className={` ez-footer bg-primary py-5`}>
+    <footer className={' ez-footer bg-primary py-5'}>
       <div className="footer-wrapper container px-md-5 px-4 text-white">
         <section className="footer-head">
           <h3 className="fw-bolder mb-4">EZ Wallet</h3>
@@ -20,5 +20,5 @@ export default function EZFooter() {
         </section>
       </div>
     </footer>
-  )
+  );
 }

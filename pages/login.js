@@ -1,4 +1,4 @@
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router';
 import EZSideBanner from '../components/EZSideBanner';
 import { useEffect, useState } from 'react';
 import EZForm from '../components/auth/EZForm';
@@ -6,27 +6,27 @@ import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearAuthInfo, setAuthInfo } from '../redux/actions/authAction';
 
-export default function Login({readyToReset, changeHandler, values, submitHandler}) {
+export default function Login ({ readyToReset, changeHandler, values, submitHandler }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const [pathName, setPathName] = useState(router.pathname || '');
-  const {authReducer} = useSelector(state => state);
+  const { authReducer } = useSelector(state => state);
 
   const loginChangeHandler = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     if (name === 'email' || name === 'password') {
       dispatch(setAuthInfo({
-        [name]: value,
-      }))
+        [name]: value
+      }));
     }
-  }
+  };
 
   const sendLoginInfo = (e) => {
     e.preventDefault();
     alert('login');
     router.push('/create-pin');
-  }
+  };
 
   useEffect(() => {
     switch (router.pathname) {
@@ -55,7 +55,7 @@ export default function Login({readyToReset, changeHandler, values, submitHandle
 
     return () => {
       dispatch(clearAuthInfo());
-    }
+    };
   }, [router]);
 
   return (
@@ -111,15 +111,17 @@ export default function Login({readyToReset, changeHandler, values, submitHandle
                     Password In a Minutes.
                   </p>
                   {
-                    readyToReset ? (
+                    readyToReset
+                      ? (
                       <p className='text-gray mb-5'>
                         Now you can create a new password for your EZ Wallet account. Type your password twice so we can confirm your new passsword.
                       </p>
-                    ) : (
+                        )
+                      : (
                       <p className='text-gray mb-5'>
                         To reset your password, you must type your e-mail and we will send a link to your email and you will be directed to the reset password screens.
                       </p>
-                    )
+                        )
                   }
                 </>
 
@@ -140,7 +142,8 @@ export default function Login({readyToReset, changeHandler, values, submitHandle
               )
             }
             {
-              pathName === 'login' ? (
+              pathName === 'login'
+                ? (
                 <EZForm
                   path={pathName}
                   readyToReset={readyToReset}
@@ -148,9 +151,8 @@ export default function Login({readyToReset, changeHandler, values, submitHandle
                   values={authReducer}
                   submitHandler={sendLoginInfo}
                 />
-              )
-              :
-              (
+                  )
+                : (
                 <EZForm
                   path={pathName}
                   readyToReset={readyToReset}
@@ -158,11 +160,11 @@ export default function Login({readyToReset, changeHandler, values, submitHandle
                   values={values}
                   submitHandler={submitHandler}
                 />
-              )
+                  )
             }
           </div>
         </div>
       </section>
     </>
-  )
+  );
 }
