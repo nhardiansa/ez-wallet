@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 import EZForm from '../components/auth/EZForm';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearAuthInfo, setAuthInfo } from '../redux/actions/authAction';
+import { clearAuthInfo, setAuthInfo, sendLoginInfo as sendLoginAction } from '../redux/actions/authAction';
+import AuthWrapper from '../components/AuthWrapper';
 
-export default function Login ({ readyToReset, changeHandler, values, submitHandler }) {
+
+function Login ({ readyToReset, changeHandler, values, submitHandler }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const [pathName, setPathName] = useState(router.pathname || '');
@@ -24,8 +26,23 @@ export default function Login ({ readyToReset, changeHandler, values, submitHand
 
   const sendLoginInfo = (e) => {
     e.preventDefault();
-    alert('login');
-    router.push('/dashboard');
+    const params = new URLSearchParams();
+    const { email, password } = authReducer;
+    const data = {
+      email, password
+    }
+
+    if (!email || !password) {
+      alert('Please fill in all fields');
+    }
+
+    for (const key in data) {
+      if (data[key]) {
+        params.append(key, data[key]);
+      }
+    }
+
+    dispatch(sendLoginAction(params));
   };
 
   useEffect(() => {
@@ -168,3 +185,5 @@ export default function Login ({ readyToReset, changeHandler, values, submitHand
     </>
   );
 }
+
+export default Login;

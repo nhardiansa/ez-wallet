@@ -1,4 +1,4 @@
-import { CLEAR_AUTH_INFO, SET_AUTH_INFO, SET_USER_PIN } from "../types/auth"
+import { CLEAR_AUTH_INFO, SEND_LOGIN_INFO, SET_AUTH_INFO, SET_USER_PIN } from "../types/auth"
 
 const initialState = {
   userPin: '',
@@ -8,6 +8,10 @@ const initialState = {
   otpCode: '',
   firstName: '',
   lastName: '',
+
+  isLoading: false,
+  isError: '',
+  token: '',
 }
 
 const auth = (state = initialState, action) => {
@@ -33,6 +37,39 @@ const auth = (state = initialState, action) => {
       state.confirmPassword = ''
       state.otpCode = ''
       state.userPin = ''
+      return { ...state }
+    }
+
+    case SEND_LOGIN_INFO + '_PENDING': {
+      state.isLoading = true
+      state.isError = ''
+      state.token = ''
+      return { ...state }
+    }
+
+    // testing
+    case SEND_LOGIN_INFO: {
+      const { token } = action.payload.data
+      state.isLoading = false
+      state.isError = ''
+      state.token = token
+      localStorage.setItem('token', JSON.stringify(token))
+      return { ...state }
+    }
+    case SEND_LOGIN_INFO + '_FULFILLED': {
+      const { token } = action.payload.data
+      console.log(action.payload.data);
+      state.isLoading = false
+      state.isError = ''
+      state.token = token
+      return { ...state }
+    }
+
+    case SEND_LOGIN_INFO + '_REJECTED': {
+      const { message } = action.payload.response.data
+      state.isLoading = false
+      state.isError = message
+      state.token = ''
       return { ...state }
     }
 

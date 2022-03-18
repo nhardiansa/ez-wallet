@@ -79,4 +79,4 @@ function Dashboard() {
   )
 }
 
-export default AuthWrapper(Dashboard);
+export default Dashboard;
