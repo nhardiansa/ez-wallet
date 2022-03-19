@@ -5,8 +5,6 @@ import EZForm from '../components/auth/EZForm';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearAuthInfo, setAuthInfo, sendLoginInfo as sendLoginAction } from '../redux/actions/authAction';
-import AuthWrapper from '../components/AuthWrapper';
-
 
 function Login ({ readyToReset, changeHandler, values, submitHandler }) {
   const router = useRouter();
@@ -34,6 +32,7 @@ function Login ({ readyToReset, changeHandler, values, submitHandler }) {
 
     if (!email || !password) {
       alert('Please fill in all fields');
+      return false;
     }
 
     for (const key in data) {
@@ -44,6 +43,14 @@ function Login ({ readyToReset, changeHandler, values, submitHandler }) {
 
     dispatch(sendLoginAction(params));
   };
+
+  useEffect(() => {
+    if (pathName === 'login') {
+      if (authReducer.isError) {
+        alert(authReducer.isError);
+      }
+    }
+  } , [authReducer.isError]);
 
   useEffect(() => {
     switch (router.pathname) {

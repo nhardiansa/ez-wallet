@@ -26,7 +26,7 @@ export const sendLoginInfo = (data) => {
   const token = 'Ini token'
   return {
     type: SEND_LOGIN_INFO,
-    // payload: axiosInstance().post('/auth/login', data)
-    payload: {data: {token}}
+    payload: axiosInstance().post('/auth/login', data)
+    // payload: {data: {token}}
   }
 }

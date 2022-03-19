@@ -56,17 +56,30 @@ const auth = (state = initialState, action) => {
       localStorage.setItem('token', JSON.stringify(token))
       return { ...state }
     }
+
     case SEND_LOGIN_INFO + '_FULFILLED': {
-      const { token } = action.payload.data
+      const {results} = action.payload.data
+      if (!results) {
+        state.isError = action.payload.data.message
+        state.isLoading = false
+        return { ...state }
+      }
       console.log(action.payload.data);
       state.isLoading = false
       state.isError = ''
-      state.token = token
+      state.token = results.token
+      localStorage.setItem('token', results.token+'')
+      alert('Login Success')
       return { ...state }
     }
 
     case SEND_LOGIN_INFO + '_REJECTED': {
-      const { message } = action.payload.response.data
+      let message;
+      if (!action.payload.response){
+        message = action.payload.message
+      } else {
+        message = action.payload.response.data.message
+      }
       state.isLoading = false
       state.isError = message
       state.token = ''

@@ -2,21 +2,20 @@ import {useRouter} from 'next/router'
 import Dashboard from '../pages/dashboard';
 import Login from "../pages/login";
 
-const AuthWrapper = (WrappedComponent) => {
-
-  const isLogin = () => {
-    const token = localStorage.getItem('token');
-    
-    if (token) {
-      return true;
-    }
-
-    return false;
+const isLogin = () => {
+  const token = localStorage.getItem('token');
+  
+  if (token) {
+    return true;
   }
 
+  return false;
+}
+
+export const MustLogin = (WrappedComponent) => {
   const Auth = (props) => {
     if (typeof window !== "undefined") {
-      console.log('AuthWrapper');
+      console.log(typeof window);
       const router = useRouter();
       const logged = isLogin();
       
@@ -24,7 +23,27 @@ const AuthWrapper = (WrappedComponent) => {
         router.replace("/login");
         return <Login />;
       }
+  
+      return <WrappedComponent {...props} />;
+    } else {
+      return <WrappedComponent {...props} />;
+    }
+  }
 
+  if (WrappedComponent.getInitialProps) {
+    Auth.getInitialProps = WrappedComponent.getInitialProps;
+  }
+
+  return Auth;
+}
+
+export const HasLogged = (WrappedComponent) => {
+  const Auth = (props) => {
+    if (typeof window !== "undefined") {
+      console.log(typeof window);
+      const router = useRouter();
+      const logged = isLogin();
+      
       if (logged) {
         router.replace("/dashboard");
         return <Dashboard />;
@@ -42,5 +61,3 @@ const AuthWrapper = (WrappedComponent) => {
 
   return Auth;
 }
-
-export default AuthWrapper;
