@@ -1,6 +1,6 @@
-import '../styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/custom.scss';
+import '../styles/globals.css';
 
 import store from '../redux/store';
 import { Provider } from 'react-redux';
