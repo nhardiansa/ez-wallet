@@ -86,6 +86,39 @@ const auth = (state = initialState, action) => {
       return { ...state }
     }
 
+    case 'SEND_REGISTER_INFO_PENDING': {
+      state.isLoading = true
+      state.isError = ''
+      state.token = ''
+      return { ...state }
+    }
+
+    case 'SEND_REGISTER_INFO_FULFILLED': {
+      const {success} = action.payload.data
+      if (!success) {
+        state.isError = action.payload.data.message
+        state.isLoading = false
+        return { ...state }
+      }
+      state.isLoading = false
+      state.isError = ''
+      alert(action.payload.data.message)
+      return { ...state }
+    }
+
+    case 'SEND_REGISTER_INFO_REJECTED': {
+      let message;
+      if (!action.payload.response){
+        message = action.payload.message
+      } else {
+        message = action.payload.response.data.message
+      }
+      state.isLoading = false
+      state.isError = message
+      alert(message)
+      return { ...state }
+    }
+
     default:
       return state
   }

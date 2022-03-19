@@ -30,3 +30,10 @@ export const sendLoginInfo = (data) => {
     // payload: {data: {token}}
   }
 }
+
+export const sendRegisterInfo = (data) => {
+  return {
+    type: 'SEND_REGISTER_INFO',
+    payload: axiosInstance().post('/auth/register', data)
+  }
+}
