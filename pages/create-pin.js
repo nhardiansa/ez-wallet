@@ -1,8 +1,9 @@
 import {useRouter} from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import qs from 'qs';
 import Login from './login';
-import { sendRegisterInfo, setAuthInfo, setUserPin } from '../redux/actions/authAction';
+import { clearAuthInfo, sendRegisterInfo, setAuthInfo, setUserPin } from '../redux/actions/authAction';
 
 export default function CreatePin () {
   const router = useRouter();
@@ -10,10 +11,20 @@ export default function CreatePin () {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const { password, email, firstName, lastName } = authReducer;
+    const { password, email, firstName, lastName, isError, isSuccess } = authReducer;
     
     if (!password || !email || !firstName || !lastName) {
       router.push('/register');
+    }
+
+    if (isError) {
+      alert(isError);
+      dispatch(clearAuthInfo(true));
+    }
+
+    if (isSuccess) {
+      alert(isSuccess);
+      router.push('/login');
     }
   }, [authReducer]);
 
@@ -58,9 +69,9 @@ export default function CreatePin () {
       }
     }
 
-    console.log(dataToSend);
-    
-    dispatch(sendRegisterInfo(params));
+    const data = qs.stringify(dataToSend);
+    console.log(data);
+    dispatch(sendRegisterInfo(data));
   }
   return (
     <Login 

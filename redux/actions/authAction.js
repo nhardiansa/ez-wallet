@@ -16,9 +16,13 @@ export const setAuthInfo = (data) => {
   }
 }
 
-export const clearAuthInfo = () => {
+export const clearAuthInfo = (email=false, token=false) => {
   return {
     type: CLEAR_AUTH_INFO,
+    payload: {
+      token,
+      email
+    }
   }
 }
 
