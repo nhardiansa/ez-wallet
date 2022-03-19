@@ -2,23 +2,30 @@ import {useRouter} from 'next/router'
 import Dashboard from '../pages/dashboard';
 import Login from "../pages/login";
 
-const AuthWrapper = (WrappedComponent, restricted = false) => {
+const AuthWrapper = (WrappedComponent) => {
+
+  const isLogin = () => {
+    const token = localStorage.getItem('token');
+    
+    if (token) {
+      return true;
+    }
+
+    return false;
+  }
+
   const Auth = (props) => {
     if (typeof window !== "undefined") {
+      console.log('AuthWrapper');
       const router = useRouter();
-      const token = localStorage.getItem("token");
+      const logged = isLogin();
       
-      if (!token) {
+      if (!logged) {
         router.replace("/login");
         return <Login />;
       }
 
-      if (restricted && !token) {
-        router.replace("/login");
-        return <Login />;
-      }
-
-      if (restricted && token) {
+      if (logged) {
         router.replace("/dashboard");
         return <Dashboard />;
       }

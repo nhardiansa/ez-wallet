@@ -21,9 +21,16 @@ export default function EZNavbar ({bgWhite}) {
   }, []);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      setIsLogged(true);
+    }
+
     if (router.pathname === '/') {
       setIsHomepage(true);
     }
+
     console.log(router.pathname);
   }, [router]);
 
