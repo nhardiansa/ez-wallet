@@ -19,3 +19,7 @@ a {
 .text-gray, .text-gray:hover, .text-gray:focus {
   color: #8F9BB3 !important;
 }
+
+.fs-sm {
+  font-size: 0.875rem !important;
+}

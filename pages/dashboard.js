@@ -6,6 +6,7 @@ import {MdOutlineSpaceDashboard, MdOutlineLogout} from 'react-icons/md';
 import Head from 'next/head';
 import Link from 'next/link';
 import AuthWrapper from '../components/AuthWrapper';
+import EZAsideNavigation from '../components/EZAsideNavigation';
 
 function Dashboard() {
   return (
@@ -16,7 +17,7 @@ function Dashboard() {
       <EZLayout useHeaderFooter={true} bgWhite={true}>
         <div className="row justify-content-center">
           <div className="col-lg-3 d-none d-lg-block">
-            <div className="navigation-wrapper d-flex flex-column justify-content-between h-100 rounded shadow py-3 px-4">
+            {/* <div className="navigation-wrapper d-flex flex-column justify-content-between h-100 rounded shadow py-3 px-4">
               <div className="menu d-flex flex-column justify-content-between">
                 <Link href="/dashboard">
                   <a className='fs-5 align-middle my-4'>
@@ -44,7 +45,8 @@ function Dashboard() {
                     <MdOutlineLogout className='fs-3 me-3' />  Log Out
                   </a>
                 </Link>
-            </div>
+            </div> */}
+            <EZAsideNavigation />
           </div>
           <div className="col row justify-content-center">
             <div className="col-12 w-100 mb-3 balance-info row bg-primary shadow rounded px-1 py-3 text-white">
