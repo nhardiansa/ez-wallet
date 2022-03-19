@@ -5,7 +5,7 @@ export default function EZInput ({ inputClassName, wrapperClassName, icon, ...re
   return (
     <InputGroup className={wrapperClassName}>
       {icon && (
-          <InputGroup.Text id="basic-addon1" className='border-0 border-bottom bg-white rounded-0 text-gray fs-3'>{icon}</InputGroup.Text>
+        <InputGroup.Text id="basic-addon1" className='border-0 border-bottom bg-white rounded-0 text-gray fs-3'>{icon}</InputGroup.Text>
       )
       }
       <FormControl
