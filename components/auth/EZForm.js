@@ -79,13 +79,13 @@ export default function EZForm ({ path, readyToReset, onChange, values, submitHa
         {
           (path === 'forgot-password' && readyToReset) && (
             <>
-              <EZInput
+              {/* <EZInput
                 wrapperClassName='mb-4 mb-md-5'
                 icon={<MdPassword />}
                 placeholder='Confirmation code'
                 name='otpCode'
                 onChange={onChange}
-              />
+              /> */}
               <EZInput
                 wrapperClassName='mb-4 mb-md-5'
                 icon={<MdOutlineLock />}
