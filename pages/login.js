@@ -6,7 +6,7 @@ import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearAuthInfo, setAuthInfo, sendLoginInfo as sendLoginAction } from '../redux/actions/authAction';
 
-function Login ({ readyToReset, changeHandler, values, submitHandler }) {
+function Login ({ readyToReset, changeHandler, values, submitHandler, useClearData=true }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const [pathName, setPathName] = useState(router.pathname || '');
@@ -78,7 +78,9 @@ function Login ({ readyToReset, changeHandler, values, submitHandler }) {
     }
 
     return () => {
-      dispatch(clearAuthInfo());
+      if (useClearData) {
+        dispatch(clearAuthInfo());
+      }
     };
   }, [router]);
 
