@@ -49,8 +49,13 @@ function Login ({ readyToReset, changeHandler, values, submitHandler, useClearDa
       if (authReducer.isError) {
         alert(authReducer.isError);
       }
+
+      if (authReducer.isSuccess) {
+        alert(authReducer.isSuccess);
+        router.push('/dashboard');
+      }
     }
-  } , [authReducer.isError]);
+  } , [authReducer]);
 
   useEffect(() => {
     switch (router.pathname) {

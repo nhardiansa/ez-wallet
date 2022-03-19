@@ -32,18 +32,20 @@ const auth = (state = initialState, action) => {
     }
 
     case CLEAR_AUTH_INFO: {
-      const {token, email} = action.payload
+      const {token, email, otp} = action.payload
       if (token) {
         state.token = ''
       }
       if (email) {
         state.email = ''
       }
+      if (otp) {
+        state.otpCode = ''
+      }
       state.firstName = ''
       state.lastName = ''
       state.password = ''
       state.confirmPassword = ''
-      state.otpCode = ''
       state.userPin = ''
       state.isError = ''
       state.isSuccess = ''
@@ -80,7 +82,7 @@ const auth = (state = initialState, action) => {
       state.isError = ''
       state.token = results.token
       localStorage.setItem('token', results.token+'')
-      alert('Login Success')
+      state.isSuccess = 'Login Success'
       return { ...state }
     }
 
@@ -126,6 +128,69 @@ const auth = (state = initialState, action) => {
       }
       state.isLoading = false
       state.isError = message
+      return { ...state }
+    }
+
+    case 'SEND_CODE_TO_EMAIL_PENDING': {
+      state.isLoading = true
+      state.isError = ''
+      state.isSuccess = ''
+      return { ...state }
+    }
+
+    case 'SEND_CODE_TO_EMAIL_FULFILLED': {
+      const {success} = action.payload.data
+      if (!success) {
+        state.isError = action.payload.data.message
+        state.isLoading = false
+        return { ...state }
+      }
+      state.isLoading = false
+      state.isError = ''
+      state.isSuccess = action.payload.data.message
+      return { ...state }
+    }
+
+    case 'SEND_CODE_TO_EMAIL_REJECTED': {
+      let message;
+      if (!action.payload.response){
+        message = action.payload.message
+      }
+      else {
+        message = action.payload.response.data.message
+      }
+      state.isLoading = false
+      state.isError = message
+      return { ...state }
+    }
+
+    case 'SEND_RESET_PASSWORD_PENDING': {
+      state.isLoading = true
+      state.isError = ''
+      state.isSuccess = ''
+      return { ...state }
+    }
+
+    case 'SEND_RESET_PASSWORD_FULFILLED': {
+      const {success} = action.payload.data
+      if (!success) {
+        state.isError = action.payload.data.message
+        state.isLoading = false
+        return { ...state }
+      }
+      state.isLoading = false
+      state.isError = ''
+      state.isSuccess = action.payload.data.message
+      return { ...state }
+    }
+
+    case 'SEND_RESET_PASSWORD_REJECTED': {
+      if (!action.payload.response) {
+        state.isError = action.payload.message
+      } else {
+        state.isError = action.payload.response.data.message
+      }
+      state.isLoading = false
       return { ...state }
     }
 
