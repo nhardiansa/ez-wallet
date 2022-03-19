@@ -11,6 +11,7 @@ const initialState = {
 
   isLoading: false,
   isError: '',
+  isSuccess: '',
   token: '',
 }
 
@@ -31,12 +32,22 @@ const auth = (state = initialState, action) => {
     }
 
     case CLEAR_AUTH_INFO: {
+      const {token, email} = action.payload
+      if (token) {
+        state.token = ''
+      }
+      if (email) {
+        state.email = ''
+      }
       state.firstName = ''
       state.lastName = ''
       state.password = ''
       state.confirmPassword = ''
       state.otpCode = ''
       state.userPin = ''
+      state.isError = ''
+      state.isSuccess = ''
+      state.isLoading = false
       return { ...state }
     }
 
@@ -102,7 +113,7 @@ const auth = (state = initialState, action) => {
       }
       state.isLoading = false
       state.isError = ''
-      alert(action.payload.data.message)
+      state.isSuccess = action.payload.data.message
       return { ...state }
     }
 
@@ -115,7 +126,6 @@ const auth = (state = initialState, action) => {
       }
       state.isLoading = false
       state.isError = message
-      alert(message)
       return { ...state }
     }
 
