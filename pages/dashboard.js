@@ -1,11 +1,7 @@
 import EZButton from '../components/EZButton';
 import EZLayout from '../components/EZLayout';
 import {BsArrowUp, BsPlus} from 'react-icons/bs';
-import {BiUser} from 'react-icons/bi';
-import {MdOutlineSpaceDashboard, MdOutlineLogout} from 'react-icons/md';
 import Head from 'next/head';
-import Link from 'next/link';
-import AuthWrapper from '../components/AuthWrapper';
 import EZAsideNavigation from '../components/EZAsideNavigation';
 
 function Dashboard() {
@@ -17,35 +13,6 @@ function Dashboard() {
       <EZLayout useHeaderFooter={true} bgWhite={true}>
         <div className="row justify-content-center">
           <div className="col-lg-3 d-none d-lg-block">
-            {/* <div className="navigation-wrapper d-flex flex-column justify-content-between h-100 rounded shadow py-3 px-4">
-              <div className="menu d-flex flex-column justify-content-between">
-                <Link href="/dashboard">
-                  <a className='fs-5 align-middle my-4'>
-                    <MdOutlineSpaceDashboard className='fs-3 me-3' />  Dashboard
-                  </a>
-                </Link>
-                <Link href="/dashboard">
-                  <a className='fs-5 align-middle my-4'>
-                    <BsArrowUp className='fs-3 me-3' />  Transfer
-                  </a>
-                </Link>
-                <Link href="/dashboard">
-                  <a className='fs-5 align-middle my-4'>
-                    <BsPlus className='fs-2 me-3' />  Top Up
-                  </a>
-                </Link>
-                <Link href="/dashboard">
-                  <a className='fs-5 align-middle my-4'>
-                    <BiUser className='fs-3 me-3' />  Profile
-                  </a>
-                </Link>
-              </div>
-              <Link href="/logout">
-                  <a className='fs-5 align-middle mb-4'>
-                    <MdOutlineLogout className='fs-3 me-3' />  Log Out
-                  </a>
-                </Link>
-            </div> */}
             <EZAsideNavigation />
           </div>
           <div className="col row justify-content-center">
