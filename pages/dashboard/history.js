@@ -2,13 +2,13 @@ import { Dropdown } from 'react-bootstrap';
 import Head from 'next/head'
 import { useEffect} from 'react'
 import { DropdownButton, } from 'react-bootstrap'
-import EZAsideNavigation from '../components/EZAsideNavigation'
-import EZLayout from '../components/EZLayout'
+import EZAsideNavigation from '../../components/EZAsideNavigation'
+import EZLayout from '../../components/EZLayout'
 
-import style from '../styles/scss/EZHistory.module.scss'
-import EZHistoryItem from '../components/EZHistoryItem';
+import style from '../../styles/scss/EZHistory.module.scss'
+import EZHistoryItem from '../../components/EZHistoryItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { getHistories } from '../redux/actions/historyAction';
+import { getHistories } from '../../redux/actions/historyAction';
 
 export default function History() {
   const dispatch = useDispatch();
@@ -49,7 +49,8 @@ export default function History() {
                   <Dropdown.Item href="#">Separated link</Dropdown.Item>
                 </DropdownButton>
               </div>
-              <div className={`${style['history-wrapper']} history-list mt-3`}>
+              <div className={`${style['history-wrapper']} overflow-auto history-list mt-3`}>
+              {/* <div className={`h-100 overflow-auto history-list mt-3`}> */}
                 {
                   loading && (
                     <div className="text-center">
@@ -57,15 +58,15 @@ export default function History() {
                     </div>
                   )
                 }
-                {
+                {/* {
                   error && (
                     <div className="text-center">
                       <p className='text-danger fs-2'>{error}</p>
                     </div>
                   )
-                }
-                {
-                  (histories.length && !loading && !error) && (
+                } */}
+                {/* {
+                  (histories.length && !loading && !error) ? (
                     histories.map((item, index) => {
                       return (
                         <EZHistoryItem
@@ -75,7 +76,20 @@ export default function History() {
                         />
                       )
                     })
+                  ) : (
+                    ''
                   )
+                } */}
+                {
+                  [...Array(10)].map((item, index) => {
+                    return (
+                      <EZHistoryItem
+                        key={index}
+                        amount={10000}
+                        transactionType={'Transfer'}
+                      />
+                    )
+                  })
                 }
               </div>
             </div>

@@ -23,3 +23,7 @@ a {
 .fs-sm {
   font-size: 0.875rem !important;
 }
+
+.fw-semi-bold {
+  font-weight: 600 !important;
+}
