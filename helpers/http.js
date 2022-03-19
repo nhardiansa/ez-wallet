@@ -7,7 +7,7 @@ export const axiosInstance = (useToken = false) => {
   const headers = {};
 
   if (useToken) {
-    const token = JSON.parse(localStorage.getItem('token'));
+    const token = localStorage.getItem('token');
     headers.Authorization = `Bearer ${token}`;
   }
 
