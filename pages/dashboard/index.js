@@ -7,11 +7,20 @@ import EZAsideNavigation from '../../components/EZAsideNavigation';
 import EZHistoryItem from '../../components/EZHistoryItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { showModal } from '../../redux/actions/transactionAction';
+import { getHistories } from '../../redux/actions/historyAction';
+import { useEffect, useState } from 'react';
 
 function Dashboard() {
   const dispatch = useDispatch();
-  const {histories, loading, error} = useSelector(state => state.historyReducer);
-  // const historyReducer = useSelector(state => state.historyReducer);
+  const { historyReducer } = useSelector(state => state);
+  const {histories, loading, error} = historyReducer
+
+  useEffect(() => {
+    if (histories.length === 0) {
+      dispatch(getHistories());
+    }
+  }, [])
+
   return (
     <>
       <Head>
@@ -42,7 +51,7 @@ function Dashboard() {
             </div>
             <div className="col-12 row gx-3 px-0 h-100">
               <div className="col-12 col-lg-7 mb-3 mb-lg-0 ps-0 pe-0 pe-lg-2">
-                <div className="chart-wrapper p-3 shadow rounded h-100">
+                <div className="chart-wrapper p-3 shadow rounded">
                   <h1>Chart</h1>
                 </div>
               </div>
@@ -71,12 +80,13 @@ function Dashboard() {
                     }
                     {
                       (histories.length && !loading && !error) ? (
-                        histories.map((item, index) => {
+                        [...histories].slice(0, 4).map((item, index) => {
                           return (
                             <EZHistoryItem
+
                               key={index}
                               amount={10000}
-                              transactionType={'Transfer'}
+                              transactionType={item.mutation_type.name}
                             />
                           )
                         })
