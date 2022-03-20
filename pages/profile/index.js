@@ -11,8 +11,9 @@ import EZButton from '../../components/EZButton'
 
 import style from '../../styles/scss/Profile.module.scss'
 import { useSelector } from 'react-redux'
+import { HasLogged, MustLogin } from '../../components/AuthWrapper'
 
-export default function Profile() {
+function Profile() {
   const router = useRouter()
   const {userReducer} = useSelector(state => state)
   const {fullName, email, phoneNumber, address} = userReducer.userProfile
@@ -53,3 +54,6 @@ export default function Profile() {
     </>
   )
 }
+
+// export default MustLogin(Profile)
+export default Profile
