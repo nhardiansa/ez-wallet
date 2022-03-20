@@ -6,7 +6,7 @@ const initialState = {
 
   loading: false,
   error: '',
-  success: false,
+  success: '',
 }
 
 const transaction = (state = initialState, action) => {
@@ -35,18 +35,18 @@ const transaction = (state = initialState, action) => {
     case 'SEND_MONEY_PENDING': {
       state.loading = true
       state.error = ''
-      state.success = false
+      state.success = ''
       return {...state}
     }
 
     case 'SEND_MONEY_FULFILLED': {
-      const {results} = action.payload.data
-      if (!results) {
+      const {success, message} = action.payload.data
+      if (!success) {
         state.error = action.payload.message
         state.loading = false
         return {...state}
       }
-      state.success = true
+      state.success = message
       state.loading = false
       return {...state}
     }
@@ -62,9 +62,7 @@ const transaction = (state = initialState, action) => {
     }
 
     case 'CLEAR_TRANSACTION': {
-      return {
-        ...state,
-      }
+      return state
     }
 
     default:

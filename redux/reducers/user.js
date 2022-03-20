@@ -56,7 +56,7 @@ const userReducer = (state = intialState, action) => {
         return {...state}
       }
       state.userProfile = results
-      state.loading = true
+      state.loading = false
       state.error = ''
       return {...state}
     }

@@ -37,3 +37,13 @@ a {
 .box-shadow-0:focus {
   box-shadow: none;
 }
+
+.fs-bigger {
+  font-size: 3rem !important;
+}
+
+@media screen and (min-width: 992px) {
+  .fs-bigger {
+    font-size: 5rem !important;
+  }
+}

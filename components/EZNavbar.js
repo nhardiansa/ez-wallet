@@ -64,7 +64,7 @@ export default function EZNavbar ({bgWhite}) {
                 <Link href="/dashboard">
                   <a className='mb-3'>Dashboard</a>
                 </Link>
-                <Link href="/dashboard">
+                <Link href="/transfer">
                   <a className='mb-3'>Transfer</a>
                 </Link>
                 <Link href="/dashboard">

@@ -9,7 +9,7 @@ import EZInput from "../../components/EZInput";
 import EZLayout from "../../components/EZLayout";
 import EZModal from "../../components/EZModal";
 import { useRouter } from "next/router";
-import { setBalanceLeft, setDateTime, setNotes, setTransferAmount, sendMoney as sendMoneyAction } from "../../redux/actions/transactionAction";
+import { setBalanceLeft, setDateTime, setNotes, setTransferAmount, sendMoney as sendMoneyAction, clearTransaction } from "../../redux/actions/transactionAction";
 import qs from 'qs'
 
 export default function InputAmount() {
@@ -29,6 +29,7 @@ export default function InputAmount() {
     if (!recepientExist) {
       router.push('/transfer');
     }
+    dispatch(clearTransaction());
   }, [])
 
   const dateOpt = {
@@ -88,6 +89,7 @@ export default function InputAmount() {
     console.log(data);
 
     dispatch(sendMoneyAction(data))
+    router.push('/transfer/result');
   }
   return (
     <>
