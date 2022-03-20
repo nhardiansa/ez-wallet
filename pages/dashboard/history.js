@@ -58,14 +58,14 @@ export default function History() {
                     </div>
                   )
                 }
-                {/* {
+                {
                   error && (
                     <div className="text-center">
                       <p className='text-danger fs-2'>{error}</p>
                     </div>
                   )
-                } */}
-                {/* {
+                }
+                {
                   (histories.length && !loading && !error) ? (
                     histories.map((item, index) => {
                       return (
@@ -77,10 +77,12 @@ export default function History() {
                       )
                     })
                   ) : (
-                    ''
+                    <div className="text-center">
+                      <p className='text-gray fs-5'>No transaction history</p>
+                    </div>
                   )
-                } */}
-                {
+                }
+                {/* {
                   [...Array(10)].map((item, index) => {
                     return (
                       <EZHistoryItem
@@ -90,7 +92,7 @@ export default function History() {
                       />
                     )
                   })
-                }
+                } */}
               </div>
             </div>
           </div>
