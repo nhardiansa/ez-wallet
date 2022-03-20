@@ -6,11 +6,14 @@ import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import EZButton from './EZButton';
 import style from '../styles/scss/Navbar.module.scss';
 import { IoMdNotificationsOutline } from 'react-icons/io';
+import {showModal as showModalAction} from '../redux/actions/transactionAction'
 
 import picturePlaceholder from '../public/images/testi-placeholder.jpg';
+import { useDispatch } from 'react-redux';
 
 export default function EZNavbar ({bgWhite}) {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [isHomepage, setIsHomepage] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
@@ -67,9 +70,9 @@ export default function EZNavbar ({bgWhite}) {
                 <Link href="/transfer">
                   <a className='mb-3'>Transfer</a>
                 </Link>
-                <Link href="/dashboard">
-                  <a className='mb-3'>Top Up</a>
-                </Link>
+                {/* <Link href="/dashboard"> */}
+                  <p onClick={() => dispatch(showModalAction(true))} className='mb-3 text-primary'>Top Up</p>
+                {/* </Link> */}
               </div>
               <EZButton variant='white' className='d-lg-none mb-4 w-100'>Log out</EZButton>
             </Nav>

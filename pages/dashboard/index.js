@@ -5,9 +5,11 @@ import EZLayout from '../../components/EZLayout';
 import {BsArrowUp, BsPlus} from 'react-icons/bs';
 import EZAsideNavigation from '../../components/EZAsideNavigation';
 import EZHistoryItem from '../../components/EZHistoryItem';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { showModal } from '../../redux/actions/transactionAction';
 
 function Dashboard() {
+  const dispatch = useDispatch();
   const {histories, loading, error} = useSelector(state => state.historyReducer);
   // const historyReducer = useSelector(state => state.historyReducer);
   return (
@@ -32,19 +34,19 @@ function Dashboard() {
                   <EZButton variant='white' className='mb-2'>
                     <BsArrowUp /> Transfer
                   </EZButton>
-                  <EZButton variant='white' >
+                  <EZButton onClick={() => dispatch(showModal(true))} variant='white' >
                     <BsPlus className='fs-4' /> Top Up
                   </EZButton>
                 </div>
               {/* </div> */}
             </div>
             <div className="col-12 row gx-3 px-0 h-100">
-              <div className="col-12 col-md-7 mb-3 mb-md-0 ps-0 pe-0 pe-md-2">
+              <div className="col-12 col-lg-7 mb-3 mb-lg-0 ps-0 pe-0 pe-lg-2">
                 <div className="chart-wrapper p-3 shadow rounded h-100">
                   <h1>Chart</h1>
                 </div>
               </div>
-              <div className="col-12 col-md-5 pe-0 ps-0 ps-md-2">
+              <div className="col-12 col-lg-5 pe-0 ps-0 ps-lg-2">
                 <div className="wrapper shadow rounded p-3">
                   <div className="heading d-flex justify-content-between">
                     <h2 className='fs-5 fw-bold text-black'>Transaction History</h2>

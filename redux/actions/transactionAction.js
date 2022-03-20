@@ -40,3 +40,10 @@ export const clearTransaction = () => {
     type: 'CLEAR_TRANSACTION',
   }
 }
+
+export const showModal = (data) => {
+  return {
+    type: 'SHOW_MODAL',
+    payload: data
+  }
+}

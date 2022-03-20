@@ -7,6 +7,8 @@ const initialState = {
   loading: false,
   error: '',
   success: '',
+
+  showModal: false,
 }
 
 const transaction = (state = initialState, action) => {
@@ -63,6 +65,11 @@ const transaction = (state = initialState, action) => {
 
     case 'CLEAR_TRANSACTION': {
       return state
+    }
+
+    case 'SHOW_MODAL': {
+      state.showModal = action.payload
+      return { ...state }
     }
 
     default:
