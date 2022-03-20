@@ -22,9 +22,17 @@ const historyReducer = (state = intialState, action) => {
         error: ''
       }
     case 'GET_HISTORIES_REJECTED':
+      let message = ''
+
+      if (!action.payload.response) {
+        message = action.payload.message
+      } else {
+        message = action.payload.response.data.message
+      }
+
       return {
         ...state,
-        error: action.payload.response.data.message,
+        error: message,
         loading: false,
         histories: []
       }

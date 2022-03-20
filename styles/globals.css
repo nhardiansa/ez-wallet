@@ -27,3 +27,23 @@ a {
 .fw-semi-bold {
   font-weight: 600 !important;
 }
+
+.image-fit image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover !important;
+}
+
+.box-shadow-0:focus {
+  box-shadow: none;
+}
+
+.fs-bigger {
+  font-size: 3rem !important;
+}
+
+@media screen and (min-width: 992px) {
+  .fs-bigger {
+    font-size: 5rem !important;
+  }
+}

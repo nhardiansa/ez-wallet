@@ -54,7 +54,7 @@ export default function EZNavbar ({bgWhite}) {
           isLogged
             ? (
             <Nav className='ms-auto align-items-center pt-4 pt-lg-0'>
-              <Image src={picturePlaceholder} alt='user-picture' className='rounded' layout='fixed' width={52} height={52} />
+              <Image src={picturePlaceholder} onClick={() => router.push('/profile')} alt='user-picture' className='rounded' layout='fixed' width={52} height={52} />
               <div className={`${bgWhite ? 'text-primary' : 'text-white'} contact mx-4 d-none d-lg-block`}>
                 <p className="name m-0 mb-2 fw-bold">Robert Chandler</p>
                 <p className="phone m-0">+62 8139 3877 7946</p>
@@ -64,7 +64,7 @@ export default function EZNavbar ({bgWhite}) {
                 <Link href="/dashboard">
                   <a className='mb-3'>Dashboard</a>
                 </Link>
-                <Link href="/dashboard">
+                <Link href="/transfer">
                   <a className='mb-3'>Transfer</a>
                 </Link>
                 <Link href="/dashboard">
