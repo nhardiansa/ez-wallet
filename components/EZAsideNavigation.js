@@ -24,7 +24,7 @@ export default function EZAsideNavigation() {
             <MdOutlineSpaceDashboard className='fs-3 me-3' />  Dashboard
           </a>
         </Link>
-        <Link href="/dashboard">
+        <Link href="/transfer">
           <a className={`${(pathName === 'transfer') ? 'fw-bolder' : ''} fs-5 align-middle my-4`}>
             <BsArrowUp className='fs-3 me-3' />  Transfer
           </a>

@@ -2,10 +2,18 @@ import EZNavbar from './EZNavbar';
 import EZFooter from './EZFooter';
 import EZAsideNavigation from './EZAsideNavigation';
 import style from '../styles/scss/EZLayout.module.scss';
+import Head from 'next/head';
 
-export default function EZLayout({ children, useHeaderFooter, bgWhite, useNavigator }) {
+export default function EZLayout({ children, useHeaderFooter, bgWhite, useNavigator, pageTitle }) {
   return (
     <>
+    {
+      pageTitle && (
+      <Head>
+        <title>{pageTitle}</title>
+      </Head>
+      )
+    }
       <EZNavbar bgWhite={bgWhite} />
         <div className={`${style['container-layout']} container`}>
           {
