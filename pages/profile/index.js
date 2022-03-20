@@ -10,9 +10,12 @@ import imagePlaceholder from '../../public/images/testi-placeholder.jpg'
 import EZButton from '../../components/EZButton'
 
 import style from '../../styles/scss/Profile.module.scss'
+import { useSelector } from 'react-redux'
 
 export default function Profile() {
   const router = useRouter()
+  const {userReducer} = useSelector(state => state)
+  const {fullName, email, phoneNumber, address} = userReducer.userProfile
 
   return (
     <>
@@ -33,12 +36,12 @@ export default function Profile() {
                 <div className='d-flex align-items-center justify-content-center mt-3 text-gray'>
                   <HiOutlinePencil className='me-1' /> Edit
                 </div>
-                <h1 className='text-center fw-bold mt-4 fs-3 text-black'>User Name</h1>
+                <h1 className='text-center fw-bold mt-4 fs-3 text-black'>{fullName ? fullName :'Unknown'}</h1>
                 <h2 className='text-center fs-6 mt-2 text-gray'>081290945780</h2>
 
                 <div className={`${style.action} other-action d-flex flex-column mt-5 mt-md-2 mt-lg-5`}>
                   <EZButton onClick={() => router.push('/profile/personal-info')} variant='white' className='mt-3 py-3' >Personal Information</EZButton>
-                  <EZButton variant='white' className='mt-3 py-3' >Change Password</EZButton>
+                  <EZButton onClick={() => router.push('/profile/change-password')} variant='white' className='mt-3 py-3' >Change Password</EZButton>
                   <EZButton variant='white' className='mt-3 py-3' >Change PIN</EZButton>
                   <EZButton variant='white' className='mt-3 py-3' >Logout</EZButton>
                 </div>
