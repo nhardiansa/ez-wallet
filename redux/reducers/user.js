@@ -3,6 +3,8 @@ const intialState = {
   userProfile: {},
   recepientDetail: {},
   currentBalance: 0,
+
+  userPhoneList: [],
   
   loading: false,
   error: '',
@@ -98,6 +100,37 @@ const userReducer = (state = intialState, action) => {
       } else {
         state.error = action.payload.data.message
       }
+      return {...state}
+    }
+
+    case 'GET_PHONE_LIST_PENDING': {
+      state.loading = true
+      state.error = ''
+      state.userPhoneList = []
+      return {...state}
+    }
+
+    case 'GET_PHONE_LIST_FULFILLED': {
+      const {results} = action.payload.data
+      if (!results) {
+        state.error = action.payload.message
+        state.loading = false
+        alert(state.error)
+        return {...state}
+      }
+      state.userPhoneList = results
+      state.loading = false
+      return {...state}
+    }
+
+    case 'GET_PHONE_LIST_REJECTED': {
+      state.loading = false
+      if (!action.payload.response) {
+        state.error = action.payload.message
+      } else {
+        state.error = action.payload.data.message
+      }
+      alert(state.error)
       return {...state}
     }
 
