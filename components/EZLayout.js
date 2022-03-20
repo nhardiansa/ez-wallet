@@ -3,8 +3,26 @@ import EZFooter from './EZFooter';
 import EZAsideNavigation from './EZAsideNavigation';
 import style from '../styles/scss/EZLayout.module.scss';
 import Head from 'next/head';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentBalance, getUserProfile } from '../redux/actions/userAction';
 
 export default function EZLayout({ children, useHeaderFooter, bgWhite, useNavigator, pageTitle }) {
+
+  const dispatch = useDispatch();
+  const { userProfile } = useSelector(state => state.userReducer);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const profileLength = Object.keys(userProfile).length;
+
+    if (token && !profileLength) {
+      dispatch(getUserProfile());
+    }
+
+    dispatch(getCurrentBalance());
+  }, []);
+
   return (
     <>
     {

@@ -33,3 +33,7 @@ a {
   height: 100%;
   object-fit: cover !important;
 }
+
+.box-shadow-0:focus {
+  box-shadow: none;
+}

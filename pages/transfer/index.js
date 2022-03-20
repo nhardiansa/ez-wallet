@@ -5,19 +5,27 @@ import {BiSearch} from 'react-icons/bi'
 import { FormControl, InputGroup } from 'react-bootstrap';
 import EZHistoryItem from '../../components/EZHistoryItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { getListUser } from '../../redux/actions/userAction';
+import { getListUser, setRecepientDetail } from '../../redux/actions/userAction';
 import { parsePhoneNumber } from 'libphonenumber-js'
+import { useRouter } from 'next/router';
+import { clearTransaction } from '../../redux/actions/transactionAction';
 
 export default function Transer() {
+  const router = useRouter()
   const dispatch = useDispatch()
   const userReducer = useSelector(state => state.userReducer);
-  const {userList, error, loading} = userReducer
+  const {userList, error, loading, userProfile} = userReducer
 
   useEffect(() => {
-    if (!userList.length) {
-      dispatch(getListUser())
-    }
+    dispatch(getListUser())
+    dispatch(clearTransaction())
   }, [])
+
+  const transferTo = (recepientId) => {
+    const userDetail = userList.find(el => el.id === recepientId)
+    dispatch(setRecepientDetail(userDetail))
+    router.push(`/transfer/${userDetail.id}`)
+  }
 
   return (
     <EZLayout pageTitle='Transfer' useNavigator={true} bgWhite={true} useHeaderFooter={true}>
@@ -60,6 +68,7 @@ export default function Transer() {
                 return (
                   <EZHistoryItem
                     key={index}
+                    onClick={() => transferTo(user.id)}
                     userName={user.fullName}
                     userImage={user.picture}
                     accepted={phone ? parsePhoneNumber(phone.number, 'ID').formatInternational() : ''}

@@ -13,8 +13,8 @@ export default function EZHistoryItem({ amount, userImage, accepted=false, userN
   }, [])
 
   return (
-    <div onClick={onClick} className={`${wrapperClassname} history-item position-relative mb-3`}>
-      <div className='d-flex justify-content-between'>
+    <div className={`${wrapperClassname} history-item position-relative mb-3`}>
+      <div onClick={onClick} className='d-flex justify-content-between'>
         <div className='d-flex align-items-center'>
           <div className="image-wrapper d-flex align-items-center">
             <Image src={userImage || imagePlaceholder} width={56} height={56}  className="rounded d-block" />
