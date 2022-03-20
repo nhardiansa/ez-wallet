@@ -2,11 +2,11 @@ import React from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import EZButton from './EZButton'
 
-export default function EZModal({modalTitle, modalBody, onConfirm, onHide, loading, ...rest}) {
+export default function EZModal({modalSize, submitName, modalTitle, modalBody, onConfirm, onHide, loading, ...rest}) {
   return (
     <Modal
       {...rest}
-      size="lg"
+      size={modalSize ? modalSize : 'lg'}
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
@@ -28,7 +28,7 @@ export default function EZModal({modalTitle, modalBody, onConfirm, onHide, loadi
                 <span className='spinner-border spinner-border-sm mr-2' role='status' aria-hidden='true'></span>
               </>
             ) : (
-              'Confirm'
+              submitName ? submitName : 'Confirm'
             )
           }
         </EZButton>
