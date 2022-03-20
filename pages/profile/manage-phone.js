@@ -5,21 +5,100 @@ import { parsePhoneNumber } from 'libphonenumber-js'
 import {BsTelephone} from 'react-icons/bs'
 
 import style from '../../styles/scss/PersonalInformation.module.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import EZButton from '../../components/EZButton'
+import { useSelector } from 'react-redux'
+import validator from 'validator'
+import { axiosInstance } from '../../helpers/http'
+import qs from 'qs'
 
 export default function ManagePhone() {
-
+  const { userReducer } = useSelector(state => state);
+  const { userPhoneList } = userReducer;
   const [addPhoneNumber, setAddPhoneNumber] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  const [phoneNumber, setPhoneNumber] = useState('');
+
+  useEffect(() => {
+    if (userPhoneList.length === 0) {
+      setAddPhoneNumber(true)
+    }
+  }, [])
 
   const deleteHandler = (e) => {
     const id = e.target.id
-    alert('Delete phone number' + id)
+
+    const decide = window.confirm(`Are you sure you want to delete this phone number?`)
+
+    if (decide) {
+      sendRequestDelete(id)
+    }
+  }
+
+  const changeHandler = (e) => {
+    const {name} = e.target
+    if (name === 'phoneNumber') {
+      setPhoneNumber(e.target.value)
+    }
+  }
+
+  const addPhoneNumberHandler = () => {
+    const number = '0' + phoneNumber
+    if (validator.isEmpty(number) || !validator.isMobilePhone(number, 'id-ID')) {
+      alert('Phone number is not valid')
+      return
+    }
+
+    const data = qs.stringify({
+      number
+    })
+
+    // console.log(data);
+    sendRequest(data)
+  }
+
+  const sendRequest = async (data) => {
+    try {
+      setLoading(true)
+      const response = await axiosInstance(true).post('/profile/phones', data)
+      setLoading(false)
+      alert(response.data.message)
+    } catch (error) {
+      let message;
+      if (!error.response) {
+        message = error.message
+      } else {
+        message = error.response.data.message
+      }
+      console.error(error);
+      setLoading(false)
+      alert(message)
+    }
+  }
+
+  const sendRequestDelete = async (id) => {
+    try {
+      setLoading(true)
+      const response = await axiosInstance(true).delete(`/profile/phones/${id}`)
+      setLoading(false)
+      alert(response.data.message)
+    } catch (error) {
+      let message;
+      if (!error.response) {
+        message = error.message
+      } else {
+        message = error.response.data.message
+      }
+      console.error(error);
+      setLoading(false)
+      alert(message)
+    }
   }
 
   return (
     <>
-      <EZLayout bgWhite={true} useHeaderFooter={true} useNavigator={true}>
+      <EZLayout pageTitle={'Manage Phone'} bgWhite={true} useHeaderFooter={true} useNavigator={true}>
         <div className="manage-phone rounded shadow h-100 p-3 mb-3 mb-lg-0">
           <h1 className='fw-bold fs-5 text-capitalize'>
               {
@@ -66,8 +145,15 @@ export default function ManagePhone() {
                     type='number'
                     placeholder='Enter your phone number'
                     inputClassName='pb-1 pb-md-0 ps-0'
+                    name='phoneNumber'
+                    onChange={changeHandler}
+                    value={phoneNumber}
                   />
-                  <EZButton className='mt-5 py-3'>Add phone number</EZButton>
+                  <EZButton onClick={addPhoneNumberHandler} className={`${loading ? 'disabled' : ''} mt-5 py-3`}>
+                    {
+                      loading ? 'Loading...' : 'Add phone number'
+                    }
+                  </EZButton>
                 </form>
               </div>
             </div>

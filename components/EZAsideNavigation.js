@@ -6,6 +6,7 @@ import {useRouter} from 'next/router'
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { showModal } from '../redux/actions/transactionAction';
+import { getPhoneList } from '../redux/actions/userAction';
 
 export default function EZAsideNavigation() {
   const router = useRouter();
@@ -18,6 +19,12 @@ export default function EZAsideNavigation() {
       setPathName(parentPath);
     }
   }, [router.pathname])
+
+  useEffect(() => {
+    if (pathName === 'profile') {
+      dispatch(getPhoneList());
+    }
+  }, [pathName])
 
   return (
     <div className="navigation-wrapper d-flex flex-column justify-content-between h-100 rounded shadow py-3 px-4">

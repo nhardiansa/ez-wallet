@@ -27,3 +27,10 @@ export const getCurrentBalance = () => {
     payload: axiosInstance(true).get('/profile/balance')
   }
 }
+
+export const getPhoneList = () => {
+  return {
+    type: 'GET_PHONE_LIST',
+    payload: axiosInstance(true).get('/profile/phones')
+  }
+}
