@@ -12,9 +12,11 @@ import { FormControl, InputGroup } from 'react-bootstrap';
 import validator from 'validator';
 import { axiosInstance } from '../helpers/http';
 import qs from 'qs';
+import { useRouter } from 'next/router';
 
 export default function EZLayout({ children, useHeaderFooter, bgWhite, useNavigator, pageTitle }) {
 
+  const router = useRouter();
   const dispatch = useDispatch();
   const { userReducer, transactionReducer } = useSelector(state => state);
   const { userProfile } = userReducer

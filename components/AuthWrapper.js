@@ -25,8 +25,6 @@ export const MustLogin = (WrappedComponent) => {
       }
   
       return <WrappedComponent {...props} />;
-    } else {
-      return <WrappedComponent {...props} />;
     }
   }
 
@@ -49,8 +47,6 @@ export const HasLogged = (WrappedComponent) => {
         return <Dashboard />;
       }
   
-      return <WrappedComponent {...props} />;
-    } else {
       return <WrappedComponent {...props} />;
     }
   }

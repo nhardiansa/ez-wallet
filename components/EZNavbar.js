@@ -47,6 +47,21 @@ export default function EZNavbar ({bgWhite}) {
     }
   };
 
+  const logOutHandler = () => {
+    const confirm = window.confirm('Are you sure you want to log out?');
+
+    if (!confirm) {
+      return;
+    }
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      localStorage.removeItem('token');
+    }
+    router.push('/login');
+    setIsLogged(false);
+  }
+
   return (
     <Navbar className={`${(isScrolled || !isHomepage) ? 'shadow rounded-bottom' : ''} ${style.navbar}`} fixed='top' collapseOnSelect expand="lg" bg={bgWhite ? 'white':'primary' } variant={bgWhite ? 'light':'dark' }>
       <Container className='py-lg-1'>
@@ -74,7 +89,7 @@ export default function EZNavbar ({bgWhite}) {
                   <p onClick={() => dispatch(showModalAction(true))} className='mb-3 text-primary'>Top Up</p>
                 {/* </Link> */}
               </div>
-              <EZButton variant='white' className='d-lg-none mb-4 w-100'>Log out</EZButton>
+              <EZButton onClick={logOutHandler} variant='white' className='d-lg-none mb-4 w-100'>Log out</EZButton>
             </Nav>
               )
             : (

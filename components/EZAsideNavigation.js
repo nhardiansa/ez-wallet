@@ -26,6 +26,21 @@ export default function EZAsideNavigation() {
     }
   }, [pathName])
 
+  const logOutHandler = () => {
+
+    const confirm = window.confirm('Are you sure you want to log out?');
+
+    if (!confirm) {
+      return;
+    }
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      localStorage.removeItem('token');
+    }
+    router.push('/login');
+  }
+
   return (
     <div className="navigation-wrapper d-flex flex-column justify-content-between h-100 rounded shadow py-3 px-4">
       <div className="menu d-flex flex-column justify-content-between">
@@ -54,11 +69,11 @@ export default function EZAsideNavigation() {
           </a>
         </Link>
       </div>
-      <Link href="/logout">
-          <a className='fs-5 align-middle mb-4'>
+      {/* <Link href="/logout"> */}
+          <p onClick={logOutHandler} className='fs-5 align-middle mb-4 text-primary' style={{cursor: 'pointer'}}>
             <MdOutlineLogout className='fs-3 me-3' />  Log Out
-          </a>
-        </Link>
+          </p>
+        {/* </Link> */}
     </div>
   )
 }
