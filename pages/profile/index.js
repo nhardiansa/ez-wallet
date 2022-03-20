@@ -42,7 +42,7 @@ export default function Profile() {
                 <div className={`${style.action} other-action d-flex flex-column mt-5 mt-md-2 mt-lg-5`}>
                   <EZButton onClick={() => router.push('/profile/personal-info')} variant='white' className='mt-3 py-3' >Personal Information</EZButton>
                   <EZButton onClick={() => router.push('/profile/change-password')} variant='white' className='mt-3 py-3' >Change Password</EZButton>
-                  <EZButton variant='white' className='mt-3 py-3' >Change PIN</EZButton>
+                  <EZButton onClick={() => router.push('/profile/change-pin')} variant='white' className='mt-3 py-3' >Change PIN</EZButton>
                   <EZButton variant='white' className='mt-3 py-3' >Logout</EZButton>
                 </div>
               </div>
