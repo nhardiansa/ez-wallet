@@ -1,16 +1,79 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import EZAsideNavigation from '../../components/EZAsideNavigation'
 import EZLayout from '../../components/EZLayout'
 import { parsePhoneNumber } from 'libphonenumber-js'
+import Swal from 'sweetalert2'
+import qs from 'qs'
 
 import style from '../../styles/scss/PersonalInformation.module.scss'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import EZInput from '../../components/EZInput'
+import { getUserProfile } from '../../redux/actions/userAction'
+import { axiosInstance } from '../../helpers/http'
 
 export default function PersonalInfo() {
+  const dispatch = useDispatch()
   const { userReducer } = useSelector(state => state)
   const { userPhoneList, userProfile } = userReducer
+
+  const [defaultProfile, setDefaultProfile] = useState({
+    firstName: '',
+    lastName: ''
+  })
+
+  useEffect(() => {
+    if (userProfile.fullName) {
+      setDefaultProfile({
+        firstName: userProfile.fullName ? userProfile.fullName.split(' ')[0] : '',
+        lastName: userProfile.fullName ? userProfile.fullName.split(' ')[1] : ''
+      })
+    }
+  }, [userProfile])
+
+  const changeHandler = (e) => {
+    const {name, value} = e.target
+
+    setDefaultProfile({
+      ...defaultProfile,
+      [name]: value.trim()
+    })
+  }
+
+  const blurHandler = (e) => {
+    const data = {
+      fullName: `${defaultProfile.firstName} ${defaultProfile.lastName}`
+    }
+
+    if (userProfile.fullName === data.fullName) {
+      return
+    }
+
+    const params = qs.stringify(data)
+    sendUpdateRequest(params)
+  }
+
+  const sendUpdateRequest = async (data) => {
+    try {
+      const response = await axiosInstance(true).patch('/profile', data)
+      if (response.status === 200) {
+        Swal.fire({
+          title: 'Success',
+          text: 'Your profile has been updated',
+          icon: 'success'
+        })
+        dispatch(getUserProfile())
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        title: 'Error',
+        text: error.response ? error.response.data.message : error.response.message,
+        icon: 'error',
+      })
+    }
+  }
 
   return (
     <>
@@ -29,22 +92,38 @@ export default function PersonalInfo() {
                 We got your personal information from the sign up proccess. If you want to make changes on your information, contact our support.
               </p>
 
-              <div className="edit-indo">
+              <div onfoc className="edit-indo">
                 <div className="info-item rounded shadow p-3 mb-3">
-                  <p className='text-gray mb-1'>First name</p>
-                  <p className='m-0 fs-5 fw-bold text-black text-capitalize'>
+                  <p className='text-gray mb-1'>
+                    First name
+                  </p>
+                  {/* <p className='m-0 fs-5 fw-bold text-black text-capitalize'>
                     {
                       userProfile.fullName ? userProfile.fullName.split(' ')[0] : 'unknown'
                     }
-                  </p>
+                  </p> */}
+                  <EZInput
+                    value={defaultProfile.firstName}
+                    name='firstName'
+                    onChange={changeHandler}
+                    onBlur={blurHandler}
+                    inputClassName='ps-0 pb-0 fs-5 fw-bold text-black text-capitalize'
+                  />
                 </div>
                 <div className="info-item rounded shadow p-3 mb-3">
                   <p className='text-gray mb-1'>Last name</p>
-                  <p className='m-0 fs-5 fw-bold text-black text-capitalize'>
+                  {/* <p className='m-0 fs-5 fw-bold text-black text-capitalize'>
                     {
                       userProfile.fullName ? userProfile.fullName.split(' ')[1] : '-'
                     }
-                  </p>
+                  </p> */}
+                  <EZInput
+                    value={defaultProfile.lastName}
+                    name='lastName'
+                    onChange={changeHandler}
+                    onBlur={blurHandler}
+                    inputClassName='ps-0 pb-0 fs-5 fw-bold text-black text-capitalize'
+                  />
                 </div>
                 <div className="info-item rounded shadow p-3 mb-3">
                   <p className='text-gray mb-1'>Verified email</p>
