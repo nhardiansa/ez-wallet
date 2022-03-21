@@ -8,14 +8,22 @@ import OtpInput from 'react-otp-input';
 
 import EZButton from '../EZButton';
 import EZInput from '../EZInput';
+import { Alert } from 'react-bootstrap';
 
-export default function EZForm ({ path, readyToReset, onChange, values, submitHandler }) {
+export default function EZForm ({ path, readyToReset, onChange, values, submitHandler, error, loading }) {
   useEffect(() => {
     console.log(path);
   }, [path]);
   return (
     <>
       <form onSubmit={submitHandler} className='d-flex flex-column align-items-end'>
+        {
+          error && (
+          <div class="alert alert-danger w-100" role="alert">
+            {error}
+          </div>
+          )
+        }
         {
           (path === 'login' || path === 'register') && (
             <>
@@ -118,7 +126,7 @@ export default function EZForm ({ path, readyToReset, onChange, values, submitHa
           )
         }
 
-        <EZButton type='submit' className='w-100 py-2 py-md-3 my-4'>
+        <EZButton type='submit' className={`${loading ? 'disabled' : ''} w-100 py-2 py-md-3 my-4`}>
           {
             path === 'login' && 'Login'
           }

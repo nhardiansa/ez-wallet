@@ -1,6 +1,6 @@
 import { Dropdown } from 'react-bootstrap';
 import Head from 'next/head'
-import { useEffect} from 'react'
+import { useEffect, useState} from 'react'
 import { DropdownButton, } from 'react-bootstrap'
 import EZAsideNavigation from '../../components/EZAsideNavigation'
 import EZLayout from '../../components/EZLayout'
@@ -9,18 +9,42 @@ import style from '../../styles/scss/EZHistory.module.scss'
 import EZHistoryItem from '../../components/EZHistoryItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { getHistories } from '../../redux/actions/historyAction';
+import { getListUser } from '../../redux/actions/userAction';
 
 export default function History() {
   const dispatch = useDispatch();
-  const {historyReducer} = useSelector(state => state);
+  const {historyReducer, userReducer} = useSelector(state => state);
   const {histories, loading, error} = historyReducer;
+  const {userList} = userReducer;
+
+  const [populatedHistory, setPopulatedHistory] = useState([]);
 
   useEffect(() => {
-    getHistorieyList();
+    getHistoriesList();
   }, [])
 
-  const getHistorieyList = () => {
+  useEffect(() => {
+    if ((histories.length > 0) && (userList.length > 0)) {
+      const populatedHistory = histories.map(history => {
+        let user = userList.find(user => user.id === history.anotherUserId);
+        
+        // find current user
+        if (!user) {
+          user = userList.find(user => user.id === history.userId);
+        }
+        
+        return {
+          ...history,
+          user
+        }
+      })
+      setPopulatedHistory(populatedHistory);
+    }
+  }, [histories, userList])
+
+  const getHistoriesList = () => {
     dispatch(getHistories());
+    dispatch(getListUser());
   }
 
   return (
@@ -66,10 +90,12 @@ export default function History() {
                   )
                 }
                 {
-                  (histories.length && !loading && !error) ? (
-                    histories.map((item, index) => {
+                  (histories.length && userList.length && !loading && !error) ? (
+                    populatedHistory.map((item, index) => {
                       return (
                         <EZHistoryItem
+                          userImage={item.user.picture}
+                          userName={item.user.fullName}
                           key={index}
                           amount={item.amount}
                           transactionType={item.mutation_type.name}
