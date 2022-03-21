@@ -57,7 +57,11 @@ function Profile() {
                 <h1 className='text-center fw-bold mt-4 fs-3 text-black text-capitalize'>{fullName ? fullName :'unknown'}</h1>
                 <h2 className='text-center fs-6 mt-2 text-gray'>
                   {
-                    userPhoneList.length > 0 ? parsePhoneNumber(userPhoneList[0].phoneNumber, 'ID').formatInternational() : 'Can\'t find phone number'
+                    userPhoneList.length > 0 ? (
+                      userPhoneList[0] ? (
+                        parsePhoneNumber(userPhoneList[0].number, 'ID').formatInternational()
+                      ) : 'Phone number not set yet'
+                    ) : 'Phone number not set yet'
                   }
                 </h2>
 

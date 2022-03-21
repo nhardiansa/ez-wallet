@@ -27,6 +27,7 @@ export default function ManagePhone() {
     console.log(userPhoneList.length);
     if (userPhoneList.length === 0) {
       setAddPhoneNumber(true)
+      // console.log(userPhoneList[0].userId);
     } else {
       setAddPhoneNumber(false)
     }
@@ -72,6 +73,7 @@ export default function ManagePhone() {
       setLoading(false)
       alert(response.data.message)
       dispatch(getPhoneList())
+      setPhoneNumber('')
     } catch (error) {
       let message;
       if (!error.response) {
@@ -134,11 +136,31 @@ export default function ManagePhone() {
                 <div className="info-item rounded shadow p-3  d-flex align-items-md-center justify-content-between">
                   <div className="wrapper-phone-number">
                     <p className='text-gray mb-1'>Phone number</p>
-                    <p className='m-0 fs-5 fw-bold text-black'>{parsePhoneNumber('081290945780', 'ID').formatInternational()}</p>
+                    <p className='m-0 fs-5 fw-bold text-black'>
+                    {
+                      userPhoneList.length > 0 ? (
+                        userPhoneList[0] ? (
+                          parsePhoneNumber(userPhoneList[0].number, 'ID').formatInternational()
+                        ) : 'Can\'t find phone number'
+                      ) : 'Can\'t find phone number'
+                    }
+                    </p>
                   </div>
-                  <div onClick={deleteHandler} id='1' className="delete-icon me-md-3 pe-auto" style={{cursor: 'pointer'}}>
-                    <FiTrash id='1' className='fs-3 text-danger pe-auto' style={{cursor: 'pointer'}} />
-                  </div>
+                    {
+                      userPhoneList.length && userPhoneList[0] ? (
+                        <div onClick={deleteHandler} id={userPhoneList[0].id} className="delete-icon me-md-3 pe-auto" style={{cursor: 'pointer'}}>
+                          {
+                            loading ? (
+                              <div className="spinner-border text-primary" role="status"></div>
+                            ) : (
+                              <FiTrash id={userPhoneList[0].id} className='fs-3 text-danger pe-auto' style={{cursor: 'pointer'}} />
+                            )
+                          }
+                        </div>
+                      ) : (
+                        ''
+                      )
+                    }
                 </div>
               </div>
             )
