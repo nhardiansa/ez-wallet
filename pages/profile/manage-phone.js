@@ -13,6 +13,7 @@ import { axiosInstance } from '../../helpers/http'
 import qs from 'qs'
 import { useDispatch } from 'react-redux'
 import { addPhoneNumber as addPhoneNumberAction, getPhoneList } from '../../redux/actions/userAction'
+import Swal from 'sweetalert2'
 
 export default function ManagePhone() {
   const dispatch = useDispatch()
@@ -22,6 +23,7 @@ export default function ManagePhone() {
   const [loading, setLoading] = useState(false)
 
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     console.log(userPhoneList.length);
@@ -33,18 +35,27 @@ export default function ManagePhone() {
     }
   }, [userReducer])
 
-  const deleteHandler = (e) => {
+  const deleteHandler = async (e) => {
     const id = e.target.id
 
-    const decide = window.confirm(`Are you sure you want to delete this phone number?`)
+    // const decide = window.confirm(`Are you sure you want to delete this phone number?`)
+    const {isConfirmed} = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    })
 
-    if (decide) {
+    if (isConfirmed) {
       sendRequestDelete(id)
     }
   }
 
   const changeHandler = (e) => {
     const {name} = e.target
+    setError('')
     if (name === 'phoneNumber') {
       setPhoneNumber(e.target.value)
     }
@@ -53,7 +64,7 @@ export default function ManagePhone() {
   const addPhoneNumberHandler = () => {
     const number = '0' + phoneNumber
     if (validator.isEmpty(number) || !validator.isMobilePhone(number, 'id-ID')) {
-      alert('Phone number is not valid')
+      setError('Invalid phone number')
       return
     }
 
@@ -63,7 +74,6 @@ export default function ManagePhone() {
 
     // console.log(data);
     sendRequest(data)
-    // dispatch(addPhoneNumberAction(data))
   }
 
   const sendRequest = async (data) => {
@@ -71,7 +81,12 @@ export default function ManagePhone() {
       setLoading(true)
       const response = await axiosInstance(true).post('/profile/phones', data)
       setLoading(false)
-      alert(response.data.message)
+      Swal.fire({
+        title: 'Success',
+        text: response.data.message,
+        icon: 'success'
+      })
+
       dispatch(getPhoneList())
       setPhoneNumber('')
     } catch (error) {
@@ -83,7 +98,11 @@ export default function ManagePhone() {
       }
       console.error(error);
       setLoading(false)
-      alert(message)
+      Swal.fire({
+        title: 'Error',
+        text: message,
+        icon: 'error',
+      })
     }
   }
 
@@ -92,7 +111,11 @@ export default function ManagePhone() {
       setLoading(true)
       const response = await axiosInstance(true).delete(`/profile/phones/${id}`)
       setLoading(false)
-      alert(response.data.message)
+      Swal.fire({
+        title: 'Success',
+        text: response.data.message,
+        icon: 'success'
+      })
       dispatch(getPhoneList())
     } catch (error) {
       let message;
@@ -103,7 +126,11 @@ export default function ManagePhone() {
       }
       console.error(error);
       setLoading(false)
-      alert(message)
+      Swal.fire({
+        title: 'Error',
+        text: message,
+        icon: 'error',
+      })
     }
   }
 
@@ -169,6 +196,13 @@ export default function ManagePhone() {
             <div className="add-phone-number">
               <div className="input-phone-number mt-5 d-flex justify-content-center">
                 <form className={`${style['form-add-phone']} d-flex flex-column`}>
+                  {
+                    error && (
+                    <div class="alert alert-danger" role="alert">
+                      {error}
+                    </div>
+                    )
+                  }
                   <EZInput
                     icon={<span>
                       <BsTelephone className='fs-5' /> <span className='fs-6 ms-md-3'>+62</span>
