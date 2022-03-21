@@ -9,11 +9,17 @@ import OtpInput from 'react-otp-input';
 import EZButton from '../EZButton';
 import EZInput from '../EZInput';
 import { Alert } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
-export default function EZForm ({ path, readyToReset, onChange, values, submitHandler, error, loading }) {
+export default function EZForm ({ path, readyToReset, onChange, values, submitHandler, error }) {
+  
+  const {authReducer} = useSelector(state => state);
+  const {isLoading} = authReducer;
+
   useEffect(() => {
     console.log(path);
   }, [path]);
+
   return (
     <>
       <form onSubmit={submitHandler} className='d-flex flex-column align-items-end'>
@@ -126,7 +132,7 @@ export default function EZForm ({ path, readyToReset, onChange, values, submitHa
           )
         }
 
-        <EZButton type='submit' className={`${loading ? 'disabled' : ''} w-100 py-2 py-md-3 my-4`}>
+        <EZButton type='submit' className={`${isLoading ? 'disabled' : ''} w-100 py-2 py-md-3 my-4`}>
           {
             path === 'login' && 'Login'
           }
