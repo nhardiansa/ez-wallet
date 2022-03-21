@@ -11,7 +11,7 @@ function Login ({ readyToReset, changeHandler, values, submitHandler, useClearDa
   const dispatch = useDispatch();
   const [pathName, setPathName] = useState(router.pathname || '');
   const { authReducer } = useSelector(state => state);
-  const {isError} = authReducer;
+  const {isError, isLoading} = authReducer;
 
   const loginChangeHandler = (e) => {
     const name = e.target.name;
