@@ -9,11 +9,15 @@ import { IoMdNotificationsOutline } from 'react-icons/io';
 import {showModal as showModalAction} from '../redux/actions/transactionAction'
 
 import picturePlaceholder from '../public/images/testi-placeholder.jpg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { parsePhoneNumber } from 'libphonenumber-js';
 
 export default function EZNavbar ({bgWhite}) {
   const router = useRouter();
   const dispatch = useDispatch();
+  const {userReducer} = useSelector(state => state);
+  const {userProfile, userPhoneList} = userReducer;
+
   const [isHomepage, setIsHomepage] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
@@ -25,6 +29,7 @@ export default function EZNavbar ({bgWhite}) {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    console.log(userPhoneList.length, 'userPhoneList');
 
     if (token) {
       setIsLogged(true);
@@ -72,10 +77,14 @@ export default function EZNavbar ({bgWhite}) {
           isLogged
             ? (
             <Nav className='ms-auto align-items-center pt-4 pt-lg-0'>
-              <Image src={picturePlaceholder} onClick={() => router.push('/profile')} alt='user-picture' className='rounded' layout='fixed' width={52} height={52} />
+              <Image src={userProfile.picture || picturePlaceholder} onClick={() => router.push('/profile')} alt='user-picture' className='rounded' layout='fixed' width={52} height={52} />
               <div className={`${bgWhite ? 'text-primary' : 'text-white'} contact mx-4 d-none d-lg-block`}>
-                <p className="name m-0 mb-2 fw-bold">Robert Chandler</p>
-                <p className="phone m-0">+62 8139 3877 7946</p>
+                <p className="name m-0 mb-2 fw-bold text-capitalize">{userProfile.fullName || 'Unknown'}</p>
+                <p className="phone m-0">
+                  {
+                    Number(userPhoneList.length) > 0 ? parsePhoneNumber(userPhoneList[0].number, 'ID').formatInternational() : 'Phone number not set'
+                  }
+                </p>
               </div>
               <IoMdNotificationsOutline className={`${bgWhite ? 'text-primary' : 'text-white'} fs-2 my-4`} />
               <div className="d-lg-none d-flex flex-column align-items-center">

@@ -9,11 +9,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { showModal } from '../../redux/actions/transactionAction';
 import { getHistories } from '../../redux/actions/historyAction';
 import { useEffect, useState } from 'react';
+import EZChart from '../../components/EZChart';
 
 function Dashboard() {
   const dispatch = useDispatch();
-  const { historyReducer } = useSelector(state => state);
+  const { historyReducer, userReducer } = useSelector(state => state);
   const {histories, loading, error} = historyReducer
+  const { currentBalance, userPhoneList } = userReducer
 
   useEffect(() => {
     if (histories.length === 0) {
@@ -36,7 +38,7 @@ function Dashboard() {
               {/* <div className=""> */}
                 <div className="col-12 col-md-6">
                   <p className='fs-5'>Balance</p>
-                  <p className='fs-1 fw-bolder'>Rp.120.000</p>
+                  <p className='fs-1 fw-bolder'>Rp{Number(currentBalance).toLocaleString('id-ID') || 0}</p>
                   <p>+62 813-9387-7946</p>
                 </div>
                 <div className="col d-flex flex-column justify-content-start align-items-md-end">
@@ -52,7 +54,13 @@ function Dashboard() {
             <div className="col-12 row gx-3 px-0 h-100">
               <div className="col-12 col-lg-7 mb-3 mb-lg-0 ps-0 pe-0 pe-lg-2">
                 <div className="chart-wrapper p-3 shadow rounded">
-                  <h1>Chart</h1>
+                  {/* <h1>Chart</h1> */}
+                  <EZChart
+                    labels={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
+                    data={[300, 50, 100, 40, 120, 80, 10]}
+                    expense={0}
+                    income={0}
+                  />
                 </div>
               </div>
               <div className="col-12 col-lg-5 pe-0 ps-0 ps-lg-2">

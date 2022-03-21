@@ -8,8 +8,10 @@ import qs from 'qs'
 
 import style from '../../styles/scss/PersonalInformation.module.scss'
 import { axiosInstance } from '../../helpers/http'
+import { useRouter } from 'next/router'
 
 export default function ChangePin() {
+  const router = useRouter()
   const [addNewpin, setAddNewpin] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -70,6 +72,7 @@ export default function ChangePin() {
       const response = await axiosInstance(true).patch(`/profile/change-pin`, data)
       setLoading(false)
       alert(response.data.message)
+      router.push('/profile')
     } catch (error) {
       let message;
       if (!error.response) {
@@ -79,6 +82,11 @@ export default function ChangePin() {
       }
       console.error(error);
       setLoading(false)
+      setAddNewpin(false)
+      setPin({
+        oldPin: '',
+        newPin: '',
+      })
       alert(message)
     }
   }

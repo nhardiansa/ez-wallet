@@ -11,8 +11,11 @@ import { useSelector } from 'react-redux'
 import validator from 'validator'
 import { axiosInstance } from '../../helpers/http'
 import qs from 'qs'
+import { useDispatch } from 'react-redux'
+import { addPhoneNumber as addPhoneNumberAction, getPhoneList } from '../../redux/actions/userAction'
 
 export default function ManagePhone() {
+  const dispatch = useDispatch()
   const { userReducer } = useSelector(state => state);
   const { userPhoneList } = userReducer;
   const [addPhoneNumber, setAddPhoneNumber] = useState(false)
@@ -21,10 +24,13 @@ export default function ManagePhone() {
   const [phoneNumber, setPhoneNumber] = useState('');
 
   useEffect(() => {
+    console.log(userPhoneList.length);
     if (userPhoneList.length === 0) {
       setAddPhoneNumber(true)
+    } else {
+      setAddPhoneNumber(false)
     }
-  }, [])
+  }, [userReducer])
 
   const deleteHandler = (e) => {
     const id = e.target.id
@@ -56,6 +62,7 @@ export default function ManagePhone() {
 
     // console.log(data);
     sendRequest(data)
+    // dispatch(addPhoneNumberAction(data))
   }
 
   const sendRequest = async (data) => {
@@ -64,6 +71,7 @@ export default function ManagePhone() {
       const response = await axiosInstance(true).post('/profile/phones', data)
       setLoading(false)
       alert(response.data.message)
+      dispatch(getPhoneList())
     } catch (error) {
       let message;
       if (!error.response) {
@@ -83,6 +91,7 @@ export default function ManagePhone() {
       const response = await axiosInstance(true).delete(`/profile/phones/${id}`)
       setLoading(false)
       alert(response.data.message)
+      dispatch(getPhoneList())
     } catch (error) {
       let message;
       if (!error.response) {
