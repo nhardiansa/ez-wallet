@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import qs from 'qs';
 import Login from './login';
 import { clearAuthInfo, sendRegisterInfo, setAuthInfo, setUserPin } from '../redux/actions/authAction';
+import Swal from 'sweetalert2'
 
 export default function CreatePin () {
   const router = useRouter();
   const { authReducer } = useSelector(state => state);
   const dispatch = useDispatch();
+
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const { password, email, firstName, lastName, isError, isSuccess } = authReducer;
@@ -18,7 +21,12 @@ export default function CreatePin () {
     }
 
     if (isError) {
-      alert(isError);
+      Swal.fire({
+        title: 'Failed',
+        text: isError,
+        icon: 'error',
+      })
+      router.push('/register');
       dispatch(clearAuthInfo(true));
     }
 
@@ -40,7 +48,7 @@ export default function CreatePin () {
     const { userPin } = authReducer;
 
     if (!userPin || (userPin.length !== 6)) {
-      alert('Please enter a valid pin');
+      setError('Please enter a valid pin');
       return false;
     }
 
@@ -59,7 +67,7 @@ export default function CreatePin () {
     }
 
     if (Object.keys(dataToSend).length < 4) {
-      alert('Data not valid to register');
+      setError('Data not valid to register');
       return false;
     }
 
@@ -77,6 +85,8 @@ export default function CreatePin () {
     <Login 
       changeHandler={setPin} 
       values={authReducer.userPin} 
-      submitHandler={sendPin} />
+      submitHandler={sendPin}
+      error={error}
+      />
   );
 }

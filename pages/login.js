@@ -6,11 +6,12 @@ import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearAuthInfo, setAuthInfo, sendLoginInfo as sendLoginAction } from '../redux/actions/authAction';
 
-function Login ({ readyToReset, changeHandler, values, submitHandler, useClearData=true }) {
+function Login ({ readyToReset, changeHandler, values, submitHandler, useClearData=true, error }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const [pathName, setPathName] = useState(router.pathname || '');
   const { authReducer } = useSelector(state => state);
+  const {isError} = authReducer;
 
   const loginChangeHandler = (e) => {
     const name = e.target.name;
@@ -46,9 +47,6 @@ function Login ({ readyToReset, changeHandler, values, submitHandler, useClearDa
 
   useEffect(() => {
     if (pathName === 'login') {
-      if (authReducer.isError) {
-        alert(authReducer.isError);
-      }
 
       if (authReducer.isSuccess) {
         alert(authReducer.isSuccess);
@@ -115,9 +113,9 @@ function Login ({ readyToReset, changeHandler, values, submitHandler, useClearDa
       }
 
       </Head>
-      <section className="row vh-100 align-items-center">
+      <section className="row vh-100 align-items-center overflow-auto">
         <EZSideBanner wrapperClassName="banner h-100 col-lg-7 d-none d-lg-flex justify-content-center" />
-        <div className="form col px-md-5 vh-100 overflow-auto">
+        <div className="form col px-md-5 vh-100">
           <div className="wrapper px-4 px-md-5 py-5">
             {
               (pathName === 'login' || pathName === 'register') && (
@@ -181,6 +179,7 @@ function Login ({ readyToReset, changeHandler, values, submitHandler, useClearDa
                   onChange={loginChangeHandler}
                   values={authReducer}
                   submitHandler={sendLoginInfo}
+                  error={isError}
                 />
                   )
                 : (
@@ -190,6 +189,7 @@ function Login ({ readyToReset, changeHandler, values, submitHandler, useClearDa
                   onChange={changeHandler}
                   values={values}
                   submitHandler={submitHandler}
+                  error={isError || error}
                 />
                   )
             }
