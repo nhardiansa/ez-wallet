@@ -6,8 +6,12 @@ import EZLayout from '../../components/EZLayout'
 import { parsePhoneNumber } from 'libphonenumber-js'
 
 import style from '../../styles/scss/PersonalInformation.module.scss'
+import { useSelector } from 'react-redux'
 
 export default function PersonalInfo() {
+  const { userReducer } = useSelector(state => state)
+  const { userPhoneList, userProfile } = userReducer
+
   return (
     <>
       <Head>
@@ -28,20 +32,40 @@ export default function PersonalInfo() {
               <div className="edit-indo">
                 <div className="info-item rounded shadow p-3 mb-3">
                   <p className='text-gray mb-1'>First name</p>
-                  <p className='m-0 fs-5 fw-bold text-black'>User Name</p>
+                  <p className='m-0 fs-5 fw-bold text-black text-capitalize'>
+                    {
+                      userProfile.fullName ? userProfile.fullName.split(' ')[0] : 'unknown'
+                    }
+                  </p>
                 </div>
                 <div className="info-item rounded shadow p-3 mb-3">
                   <p className='text-gray mb-1'>Last name</p>
-                  <p className='m-0 fs-5 fw-bold text-black'>User Name</p>
+                  <p className='m-0 fs-5 fw-bold text-black text-capitalize'>
+                    {
+                      userProfile.fullName ? userProfile.fullName.split(' ')[1] : '-'
+                    }
+                  </p>
                 </div>
                 <div className="info-item rounded shadow p-3 mb-3">
                   <p className='text-gray mb-1'>Verified email</p>
-                  <p className='m-0 fs-5 fw-bold text-gray'>user@email.mail</p>
+                  <p className='m-0 fs-5 fw-bold text-gray'>
+                    {
+                      userProfile.email ? userProfile.email : 'Not set yet'
+                    }
+                  </p>
                 </div>
                 <div className="info-item rounded shadow p-3  d-flex align-items-md-center justify-content-between">
                   <div className="wrapper-phone-number">
                     <p className='text-gray mb-1'>Phone number</p>
-                    <p className='m-0 fs-5 fw-bold text-black'>{parsePhoneNumber('081290945780', 'ID').formatInternational()}</p>
+                    <p className='m-0 fs-5 fw-bold text-black'>
+                    {
+                      userPhoneList.length > 0 ? (
+                        userPhoneList[0] ? (
+                          parsePhoneNumber(userPhoneList[0].number, 'ID').formatInternational()
+                        ) : 'Not set yet'
+                      ) : 'Not set yet'
+                    }
+                    </p>
                   </div>
                   <Link href='/profile/manage-phone'>
                     <a className='text-primary fw-bold'>Manage</a>
