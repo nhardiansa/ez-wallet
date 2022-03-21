@@ -6,8 +6,9 @@ import style from '../styles/scss/EZLayout.module.scss';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentBalance, getUserProfile } from '../redux/actions/userAction';
+import { getCurrentBalance, getUserProfile, getListUser } from '../redux/actions/userAction';
 import {showModal as showModalAction} from '../redux/actions/transactionAction';
+import {getHistories} from '../redux/actions/historyAction';
 import { FormControl, InputGroup } from 'react-bootstrap';
 import validator from 'validator';
 import { axiosInstance } from '../helpers/http';
@@ -31,6 +32,7 @@ export default function EZLayout({ children, useHeaderFooter, bgWhite, useNaviga
 
     if (token && !profileLength) {
       dispatch(getUserProfile());
+      dispatch(getListUser());
     }
 
     dispatch(getCurrentBalance());
@@ -67,6 +69,8 @@ export default function EZLayout({ children, useHeaderFooter, bgWhite, useNaviga
       setAmount('');
       alert(result.data.message);
       dispatch(showModalAction(false));
+      dispatch(getCurrentBalance());
+      dispatch(getHistories());
     } catch (error) {
       console.error(error);
       setLoading(false);

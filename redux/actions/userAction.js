@@ -41,3 +41,10 @@ export const addPhoneNumber = (data) => {
     payload: axiosInstance(true).post('/profile/phones', data)
   }
 }
+
+export const setCurrentBalance = (data) => {
+  return {
+    type: 'SET_CURRENT_BALANCE',
+    payload: data
+  }
+}

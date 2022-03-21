@@ -73,6 +73,7 @@ export default function History() {
                           key={index}
                           amount={item.amount}
                           transactionType={item.mutation_type.name}
+                          accepted={item.mutation_type.name}
                         />
                       )
                     })

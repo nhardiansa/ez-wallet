@@ -17,7 +17,7 @@ const historyReducer = (state = intialState, action) => {
     case 'GET_HISTORIES_FULFILLED':
       return {
         ...state,
-        histories: action.payload.data.results,
+        histories: action.payload.data.results.sort((a, b) => (a.createdAt > b.createdAt) ? -1 : 1),
         loading: false,
         error: ''
       }
