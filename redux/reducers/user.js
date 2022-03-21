@@ -134,6 +134,35 @@ const userReducer = (state = intialState, action) => {
       return {...state}
     }
 
+    case 'ADD_PHONE_NUMBER_PENDING': {
+      state.loading = true
+      state.error = ''
+      return {...state}
+    }
+
+    case 'ADD_PHONE_NUMBER_FULFILLED': {
+      const {results} = action.payload.data
+      if (!results) {
+        state.error = action.payload.message
+        state.loading = false
+        return {...state}
+      }
+      state.loading = false
+      state.error = ''
+      alert('Add phone number success')
+      return {...state}
+    }
+
+    case 'ADD_PHONE_NUMBER_REJECTED': {
+      state.loading = false
+      if (!action.payload.response) {
+        state.error = action.payload.message
+      } else {
+        state.error = action.payload.data.message
+      }
+      return {...state}
+    }
+
     default: {
       return {...state}
     }

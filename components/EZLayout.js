@@ -66,6 +66,7 @@ export default function EZLayout({ children, useHeaderFooter, bgWhite, useNaviga
       setLoading(false);
       setAmount('');
       alert(result.data.message);
+      dispatch(showModalAction(false));
     } catch (error) {
       console.error(error);
       setLoading(false);

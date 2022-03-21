@@ -34,3 +34,10 @@ export const getPhoneList = () => {
     payload: axiosInstance(true).get('/profile/phones')
   }
 }
+
+export const addPhoneNumber = (data) => {
+  return {
+    type: 'ADD_PHONE_NUMBER',
+    payload: axiosInstance(true).post('/profile/phones', data)
+  }
+}

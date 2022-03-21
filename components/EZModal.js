@@ -21,7 +21,7 @@ export default function EZModal({modalSize, submitName, modalTitle, modalBody, o
         {modalBody}
       </Modal.Body>
       <Modal.Footer className='border-top-0'>
-        <EZButton className='px-lg-5 py-lg-3' onClick={onConfirm}>
+        <EZButton className={`${loading ? 'disabled' : ''} px-lg-5 py-lg-3`} onClick={onConfirm}>
           {
             loading ? (
               <>

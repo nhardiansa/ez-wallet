@@ -25,6 +25,9 @@ const auth = (state = initialState, action) => {
     }
 
     case SET_AUTH_INFO: {
+      if (state.isError) {
+        state.isError = ''
+      }
       return {
         ...state,
         ...action.payload,
