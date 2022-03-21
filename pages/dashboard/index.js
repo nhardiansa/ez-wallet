@@ -15,13 +15,34 @@ function Dashboard() {
   const dispatch = useDispatch();
   const { historyReducer, userReducer } = useSelector(state => state);
   const {histories, loading, error} = historyReducer
-  const { currentBalance, userPhoneList } = userReducer
+  const { currentBalance, userList } = userReducer
+
+  const [populatedHistory, setPopulatedHistory] = useState([]);
 
   useEffect(() => {
-    if (histories.length === 0) {
+    // if (histories.length === 0) {
       dispatch(getHistories());
-    }
+    // }
   }, [])
+
+  useEffect(() => {
+    if ((histories.length > 0) && (userList.length > 0)) {
+      const populatedHistory = histories.map(history => {
+        let user = userList.find(user => user.id === history.anotherUserId);
+        
+        // find current user
+        if (!user) {
+          user = userList.find(user => user.id === history.userId);
+        }
+        
+        return {
+          ...history,
+          user
+        }
+      })
+      setPopulatedHistory(populatedHistory);
+    }
+  }, [histories, userList])
 
   return (
     <>
@@ -87,14 +108,17 @@ function Dashboard() {
                       )
                     }
                     {
-                      (histories.length && !loading && !error) ? (
-                        [...histories].slice(0, 4).map((item, index) => {
+                      (histories.length && userList.length && !loading && !error) ? (
+                        [...populatedHistory].slice(0, 4).map((item, index) => {
+                          
                           return (
                             <EZHistoryItem
-
+                              userName={item.user.fullName}
+                              userImage={item.user.picture}
                               key={index}
-                              amount={10000}
+                              amount={item.amount}
                               transactionType={item.mutation_type.name}
+                              accepted={item.mutation_type.name}
                             />
                           )
                         })

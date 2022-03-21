@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import EZHistoryItem from '../../components/EZHistoryItem'
 import EZLayout from '../../components/EZLayout'
@@ -8,15 +8,21 @@ import {BsDownload} from 'react-icons/bs'
 import {FiCheckCircle} from 'react-icons/fi'
 import {MdCancel} from 'react-icons/md'
 import {BiMailSend} from 'react-icons/bi'
+import { getHistories } from '../../redux/actions/historyAction';
 
 export default function Result() {
   const router = useRouter();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   
   const {userReducer, transactionReducer} = useSelector(state => state);
   const {recepientDetail, currentBalance} = userReducer
   const {transferAmount, dateTime, notes, error, success, loading} = transactionReducer
 
+  useEffect(() => {
+    return () => {
+      dispatch(getHistories());
+    }
+  },[])
 
   return (
     <>

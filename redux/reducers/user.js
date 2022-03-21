@@ -163,6 +163,11 @@ const userReducer = (state = intialState, action) => {
       return {...state}
     }
 
+    case 'SET_CURRENT_BALANCE': {
+      state.currentBalance = action.payload
+      return {...state}
+    }
+
     default: {
       return {...state}
     }
