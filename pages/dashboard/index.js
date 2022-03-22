@@ -11,6 +11,8 @@ import { getHistories } from '../../redux/actions/historyAction';
 import { useEffect, useState } from 'react';
 import EZChart from '../../components/EZChart';
 
+import { MustLogin } from '../../components/AuthWrapper';
+
 function Dashboard() {
   const dispatch = useDispatch();
   const { historyReducer, userReducer } = useSelector(state => state);
@@ -139,4 +141,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard;
+export default MustLogin(Dashboard);

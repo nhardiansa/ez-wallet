@@ -5,6 +5,7 @@ import EZForm from '../components/auth/EZForm';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearAuthInfo, setAuthInfo, sendLoginInfo as sendLoginAction } from '../redux/actions/authAction';
+import { HasLogin } from '../components/AuthWrapper';
 
 function Login ({ readyToReset, changeHandler, values, submitHandler, useClearData=true, error }) {
   const router = useRouter();

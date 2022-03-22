@@ -1,4 +1,5 @@
 import {useRouter} from 'next/router'
+import { useEffect, useState } from 'react';
 import Dashboard from '../pages/dashboard';
 import Login from "../pages/login";
 
@@ -13,47 +14,21 @@ const isLogin = () => {
 }
 
 export const MustLogin = (WrappedComponent) => {
-  const Auth = (props) => {
-    if (typeof window !== "undefined") {
-      console.log(typeof window);
-      const router = useRouter();
-      const logged = isLogin();
-      
-      if (!logged) {
-        router.replace("/login");
-        return <Login />;
+  const AuthenticatedComponent  = () => {
+    const router = useRouter();
+    const [isLogged, setIsLogged] = useState(false);
+
+    useEffect(() => {
+      const loginStatus = isLogin();
+
+      if (!loginStatus) {
+        router.replace('/login');
+      } else {
+        setIsLogged(loginStatus);
       }
-  
-      return <WrappedComponent {...props} />;
-    }
+    }, []);
+
+    return isLogged ? <WrappedComponent /> : <Login />;
   }
-
-  if (WrappedComponent.getInitialProps) {
-    Auth.getInitialProps = WrappedComponent.getInitialProps;
-  }
-
-  return Auth;
-}
-
-export const HasLogged = (WrappedComponent) => {
-  const Auth = (props) => {
-    if (typeof window !== "undefined") {
-      console.log(typeof window);
-      const router = useRouter();
-      const logged = isLogin();
-      
-      if (logged) {
-        router.replace("/dashboard");
-        return <Dashboard />;
-      }
-  
-      return <WrappedComponent {...props} />;
-    }
-  }
-
-  if (WrappedComponent.getInitialProps) {
-    Auth.getInitialProps = WrappedComponent.getInitialProps;
-  }
-
-  return Auth;
+  return AuthenticatedComponent;
 }
