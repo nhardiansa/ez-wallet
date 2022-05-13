@@ -2,15 +2,48 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 * {
   box-sizing: border-box;
+}
+
+.bg-semi-white {
+  background-color: #FAFCFF;
+}
+
+.text-gray, .text-gray:hover, .text-gray:focus {
+  color: #8F9BB3 !important;
+}
+
+.fs-sm {
+  font-size: 0.875rem !important;
+}
+
+.fw-semi-bold {
+  font-weight: 600 !important;
+}
+
+.image-fit image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover !important;
+}
+
+.box-shadow-0:focus {
+  box-shadow: none;
+}
+
+.fs-bigger {
+  font-size: 3rem !important;
+}
+
+@media screen and (min-width: 992px) {
+  .fs-bigger {
+    font-size: 5rem !important;
+  }
 }

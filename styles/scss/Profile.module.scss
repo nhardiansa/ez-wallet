@@ -1,0 +1,24 @@
+.action {
+  width: 100%;
+}
+
+.file-input {
+  // display: none;
+  // visibility: hidden;
+  // width: 50%;
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .action {
+    width: 70%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .action {
+    width: 50%;
+  }
+}
