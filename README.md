@@ -10,4 +10,6 @@ EZ Wallet is a web application that allows you to send and receive money from an
 
 1. Clone this repository to your local machine
 2. Install dependencies with ```npm install```
-3. Run ```npm run dev``` to start the app.
+3. Copy the ```.env.example``` and rename to ```.env```
+4. Fill in the ```.env``` file with your base URL and API URL
+5. Run ```npm run dev``` to start the app.
